@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: install driman key
+      authorized_key:
+        user: root
+        state: present
+        key: '{{ item }}'
+      with_file:
+        - driman.pub
