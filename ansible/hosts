@@ -5,10 +5,18 @@ all:
       children:
         workers_test:
         controllers_test:
+        haproxy_test:
     prod:
       children:
         controllers_prod:
         workers_prod:
+        haproxy_prod:
+    haproxy_test:
+      hosts:
+        tspeda-k8s-haproxy.infra.umontpellier.fr
+    haproxy_prod:
+      hosts:
+        prodpeda-k8s-haproxy.infra.umontpellier.fr
     kubernetes_test:
       children:
         controllers_test:

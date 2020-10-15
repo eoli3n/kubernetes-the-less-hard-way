@@ -1,0 +1,31 @@
+---
+- hosts: kubernetes_test:kubernetes_prod
+  tasks:
+    - name: Gather network facts
+      setup:
+        gather_subset:
+          - network
+
+- hosts: haproxy_test:haproxy_prod
+  roles:
+    # https://github.com/manala/ansible-role-haproxy
+    - role: manala.haproxy
+      tags: haproxy
+      vars:
+        manala_haproxy_environment: 
+          - CONFIG: "/etc/haproxy/conf.d"
+        manala_haproxy_configs_exclusive: true
+        manala_haproxy_configs:
+          - file: 010-global.cfg
+            template: roles/manala.haproxy/templates/haproxy.cfg.global.j2
+          - file: 020-defaults.cfg
+            template: roles/manala.haproxy/templates/haproxy.cfg.defaults.j2
+          - file: 025-stats.cfg
+            content: |
+              listen stats
+                  bind *:8404
+                  mode http
+                  stats enable
+                  stats uri /
+                  stats refresh 10s
+                  stats admin if LOCALHOST
