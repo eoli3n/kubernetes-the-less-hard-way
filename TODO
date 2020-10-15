@@ -1,4 +1,3 @@
-- provisionner les vms
-- configurations de base
-- creer les snapshot nutanix
-
+- config shell
+- snapshot
+- rédiger playbook d'installation des prérequis

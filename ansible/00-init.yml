@@ -8,3 +8,10 @@
         key: '{{ item }}'
       with_file:
         - driman.pub
+        - jk.pub
+
+- hosts: all
+  tasks:
+    - name: install kitty terminfo
+      apt:
+        name: kitty-terminfo

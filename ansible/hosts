@@ -19,16 +19,16 @@ all:
         workers_prod:
     controllers_test:
       hosts:
-        tspeda-kubernetes-controller[1:2:3].infra.umontpellier.fr:
+        tspeda-k8s-controller[1:2:3].infra.umontpellier.fr:
     workers_test:
       hosts:
-        tspeda-kubernetes-worker[1:2:3].infra.umontpellier.fr:
+        tspeda-k8s-worker[1:2:3].infra.umontpellier.fr:
     controllers_prod:
       hosts:
-        prodpeda-kubernetes-controller[1:2:3].infra.umontpellier.fr:
+        prodpeda-k8s-controller[1:2:3].infra.umontpellier.fr:
     workers_prod:
       hosts:
-        prodpeda-kubernetes-worker[1:2:3].infra.umontpellier.fr:
+        prodpeda-k8s-worker[1:2:3].infra.umontpellier.fr:
     controllers:
       children:
         controllers_test:
