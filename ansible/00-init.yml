@@ -10,8 +10,16 @@
         - driman.pub
         - jk.pub
 
-- hosts: all
-  tasks:
-    - name: install kitty terminfo
+    - name: install shell packages
       apt:
-        name: kitty-terminfo
+        name:
+          - kitty-terminfo
+          - fish
+
+    - name: change shell for users
+      user:
+        name: '{{ item }}'
+        shell: /usr/bin/fish
+      loop:
+        - kube
+        - root
