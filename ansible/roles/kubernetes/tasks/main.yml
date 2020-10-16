@@ -1,0 +1,61 @@
+---
+- name: Install Kubernetes Controller Binaries
+  get_url:
+    url: '{{ item }}'
+    dest: /usr/bin/
+    mode: 0755
+  loop:
+    - https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-apiserver
+    - https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-controller-manager
+    - https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-scheduler
+    - https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubectl
+
+- name: Create kubernetes directory
+  file:
+    path: '{{ item }}'
+    state: directory
+  loop:
+    - /etc/kubernetes/config/
+    - /var/lib/kubernetes/
+
+- name: Configure Kubernets API Server
+  copy:
+    src: '/root/{{ item }}'
+    dest: /var/lib/kubernetes/
+    remote_src: yes
+  loop:
+    - ca.pem
+    - ca-key.pem
+    - kubernetes-key.pem
+    - kubernetes.pem
+    - service-account-key.pem
+    - service-account.pem
+    - encryption-config.yaml
+    - kube-controller-manager.kubeconfig
+    - kube-scheduler.kubeconfig
+
+- name: Create Kuneretes API Service
+  template:
+    src: kube-apiserver.service.j2
+    dest: /etc/systemd/system/
+  notify:
+    - restart kube-apiserver
+
+- name: Create Kuneretes Controller Manager Service
+  copy:
+    src: kube-controller-manager.service
+    dest: /etc/systemd/system/
+  notify:
+    - restart kube-controller-manager
+
+- name: Copy Kubernetes Scheduler Config
+  copy:
+    src: kube-scheduler.yaml
+    dest: /etc/kubernetes/config/
+
+- name: Create Kubernetes Scheduler Service
+  copy:
+    src: kube-scheduler.service
+    dest: /etc/systemd/system/
+  notify:
+    - restart kube-scheduler
