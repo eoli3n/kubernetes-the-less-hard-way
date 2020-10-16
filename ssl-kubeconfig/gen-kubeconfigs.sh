@@ -1,11 +1,12 @@
 #!/bin/bash
 
 KUBERNETES_PUBLIC_ADDRESS=$(dig +short tspeda-k8s-haproxy.infra.umontpellier.fr | tail -n1)
+CLUSTER_NAME=cluster-test
 
 # kubelet Kubernetes Configuration File
 
 for instance in worker1 worker2 worker3; do
-  kubectl config set-cluster cluster-test \
+  kubectl config set-cluster ${CLUSTER_NAME} \
     --certificate-authority=ca.pem \
     --embed-certs=true \
     --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443 \
@@ -18,7 +19,7 @@ for instance in worker1 worker2 worker3; do
     --kubeconfig=${instance}.kubeconfig
 
   kubectl config set-context default \
-    --cluster=kubernetes-the-hard-way \
+    --cluster=${CLUSTER_NAME} \
     --user=system:node:${instance} \
     --kubeconfig=${instance}.kubeconfig
 
@@ -27,7 +28,7 @@ done
 
 # kube-proxy Kubernetes Configuration File
 
-kubectl config set-cluster cluster-test \
+kubectl config set-cluster ${CLUSTER_NAME} \
   --certificate-authority=ca.pem \
   --embed-certs=true \
   --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443 \
@@ -40,7 +41,7 @@ kubectl config set-credentials system:kube-proxy \
   --kubeconfig=kube-proxy.kubeconfig
 
 kubectl config set-context default \
-  --cluster=kubernetes-the-hard-way \
+  --cluster=${CLUSTER_NAME} \
   --user=system:kube-proxy \
   --kubeconfig=kube-proxy.kubeconfig
 
@@ -48,7 +49,7 @@ kubectl config use-context default --kubeconfig=kube-proxy.kubeconfig
 
 # kube-controller-manager Kubernetes Configuration File
 
-kubectl config set-cluster cluster-test \
+kubectl config set-cluster ${CLUSTER_NAME} \
     --certificate-authority=ca.pem \
     --embed-certs=true \
     --server=https://127.0.0.1:6443 \
@@ -61,7 +62,7 @@ kubectl config set-credentials system:kube-controller-manager \
   --kubeconfig=kube-controller-manager.kubeconfig
 
 kubectl config set-context default \
-  --cluster=kubernetes-the-hard-way \
+  --cluster=${CLUSTER_NAME} \
   --user=system:kube-controller-manager \
   --kubeconfig=kube-controller-manager.kubeconfig
 
@@ -69,7 +70,7 @@ kubectl config use-context default --kubeconfig=kube-controller-manager.kubeconf
 
 # kube-scheduler Kubernetes Configuration File
 
-kubectl config set-cluster cluster-test \
+kubectl config set-cluster ${CLUSTER_NAME} \
   --certificate-authority=ca.pem \
   --embed-certs=true \
   --server=https://127.0.0.1:6443 \
@@ -82,7 +83,7 @@ kubectl config set-credentials system:kube-scheduler \
   --kubeconfig=kube-scheduler.kubeconfig
 
 kubectl config set-context default \
-  --cluster=kubernetes-the-hard-way \
+  --cluster=${CLUSTER_NAME} \
   --user=system:kube-scheduler \
   --kubeconfig=kube-scheduler.kubeconfig
 
@@ -90,7 +91,7 @@ kubectl config use-context default --kubeconfig=kube-scheduler.kubeconfig
 
 # admin Kubernetes Configuration File
 
-kubectl config set-cluster test-cluster \
+kubectl config set-cluster ${CLUSTER_NAME} \
   --certificate-authority=ca.pem \
   --embed-certs=true \
   --server=https://127.0.0.1:6443 \
@@ -103,7 +104,7 @@ kubectl config set-credentials admin \
   --kubeconfig=admin.kubeconfig
 
 kubectl config set-context default \
-  --cluster=kubernetes-the-hard-way \
+  --cluster=${CLUSTER_NAME} \
   --user=admin \
   --kubeconfig=admin.kubeconfig
 
