@@ -1,4 +1,6 @@
-### Install
+On your host
+
+### Install clients
 
 ```
 go get -u github.com/cloudflare/cfssl/cmd/cfssl
@@ -14,7 +16,7 @@ go get -u github.com/cloudflare/cfssl/cmd/cfssljson
 ./gen-encryption.sh
 ```
 
-### Distribute to nodes
+### Distribute to kubernetes nodes
 
 ```
 # Workers
