@@ -18,7 +18,7 @@ ansible-playbook 01-etcd.yml -l test
 ```
 Test with
 ```
-ansible controllers_test -m shell -a "ETCDCTL_API=3 etcdctl member list \                                 16:01:28
+ansible controllers_test -m shell -a "ETCDCTL_API=3 etcdctl member list \
     --endpoints=https://127.0.0.1:2379 \
     --cacert=/etc/etcd/ca.pem \
     --cert=/etc/etcd/kubernetes.pem \
