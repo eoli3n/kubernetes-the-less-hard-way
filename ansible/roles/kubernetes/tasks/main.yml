@@ -33,12 +33,11 @@
     - encryption-config.yaml
     - kube-controller-manager.kubeconfig
     - kube-scheduler.kubeconfig
-    - 
 
-- name: Create Kuneretes API Service
+- name: Create Kubernetes API Service
   template:
     src: kube-apiserver.service.j2
-    dest: /etc/systemd/system/
+    dest: /etc/systemd/system/kube-apiserver.service
   notify:
     - restart kube-apiserver
 
@@ -75,5 +74,6 @@
   file:
     src: /etc/nginx/sites-available/kubernetes.default.svc.cluster.local
     dest: /etc/nginx/sites-enabled/kubernetes.default.svc.cluster.local
+    state: link
   notify:
     - restart nginx
