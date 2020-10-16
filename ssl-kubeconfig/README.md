@@ -11,6 +11,7 @@ go get -u github.com/cloudflare/cfssl/cmd/cfssljson
 ./gen-csr-json.sh
 ./gen-certs.sh
 ./gen-kubeconfigs.sh
+./gen-encryption.sh
 ```
 
 ### Distribute to nodes
@@ -27,6 +28,7 @@ done
 for instance in controller1 controller2 controller3; do
   scp ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem service-account-key.pem service-account.pem \
   admin.kubeconfig kube-controller-manager.kubeconfig kube-scheduler.kubeconfig \
+  encryption-config.yaml \
   root@tspeda-k8s-${instance}.infra.umontpellier.fr:~/
 done
 ```
