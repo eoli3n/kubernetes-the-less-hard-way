@@ -24,18 +24,36 @@ ansible controllers_test -m shell -a "ETCDCTL_API=3 etcdctl member list \
     --cert=/etc/etcd/kubernetes.pem \
     --key=/etc/etcd/kubernetes-key.pem"
 ```
-Returns
+Returns on each
 ```
-tspeda-k8s-controller2.infra.umontpellier.fr | CHANGED | rc=0 >>
 dd5995046894cdd4, started, tspeda-k8s-controller3, https://162.38.60.203:2380, https://162.38.60.203:2379, false
 ec778b58d61b4683, started, tspeda-k8s-controller1, https://162.38.60.201:2380, https://162.38.60.201:2379, false
 f1c47e23a339d1cf, started, tspeda-k8s-controller2, https://162.38.60.202:2380, https://162.38.60.202:2379, false
-tspeda-k8s-controller3.infra.umontpellier.fr | CHANGED | rc=0 >>
-dd5995046894cdd4, started, tspeda-k8s-controller3, https://162.38.60.203:2380, https://162.38.60.203:2379, false
-ec778b58d61b4683, started, tspeda-k8s-controller1, https://162.38.60.201:2380, https://162.38.60.201:2379, false
-f1c47e23a339d1cf, started, tspeda-k8s-controller2, https://162.38.60.202:2380, https://162.38.60.202:2379, false
-tspeda-k8s-controller1.infra.umontpellier.fr | CHANGED | rc=0 >>
-dd5995046894cdd4, started, tspeda-k8s-controller3, https://162.38.60.203:2380, https://162.38.60.203:2379, false
-ec778b58d61b4683, started, tspeda-k8s-controller1, https://162.38.60.201:2380, https://162.38.60.201:2379, false
-f1c47e23a339d1cf, started, tspeda-k8s-controller2, https://162.38.60.202:2380, https://162.38.60.202:2379, false
+```
+
+##### Kubernetes
+```
+ansible-playbook 02-kubernetes.yml -l test
+```
+Test with
+```
+ansible controllers_test -m shell -a 'kubectl get componentstatuses --kubeconfig admin.kubeconfig \
+  && curl -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz'
+```
+Returns on each
+```
+NAME                 STATUS    MESSAGE             ERROR
+controller-manager   Healthy   ok                  
+scheduler            Healthy   ok                  
+etcd-1               Healthy   {"health":"true"}   
+etcd-0               Healthy   {"health":"true"}   
+etcd-2               Healthy   {"health":"true"}   
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Date: Fri, 16 Oct 2020 16:57:04 GMT
+Content-Type: text/plain; charset=utf-8
+Content-Length: 2
+Connection: keep-alive
+Cache-Control: no-cache, private
+X-Content-Type-Options: nosniff
 ```
