@@ -1,0 +1,1 @@
+- in ansible/templates/etcd.service.j2 -> loop to ansible controllers ips
