@@ -33,6 +33,7 @@
     - encryption-config.yaml
     - kube-controller-manager.kubeconfig
     - kube-scheduler.kubeconfig
+    - 
 
 - name: Create Kuneretes API Service
   template:
@@ -59,3 +60,20 @@
     dest: /etc/systemd/system/
   notify:
     - restart kube-scheduler
+
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Create healthz Site
+  copy:
+    src: kubernetes.default.svc.cluster.local
+    dest:  /etc/nginx/sites-available/
+
+- name: Enable healthz Site
+  file:
+    src: /etc/nginx/sites-available/kubernetes.default.svc.cluster.local
+    dest: /etc/nginx/sites-enabled/kubernetes.default.svc.cluster.local
+  notify:
+    - restart nginx

@@ -19,3 +19,10 @@
     state: restarted
     daemon_reload: yes
     enabled: yes
+
+- name: restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
