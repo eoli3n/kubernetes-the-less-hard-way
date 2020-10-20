@@ -77,3 +77,11 @@
     state: link
   notify:
     - restart nginx
+
+- name: Copy RBAC yml authorization manifest
+  copy:
+    src: rbac.yml
+    dest: /root/
+
+- name: Apply RBAC authorization manifest
+  shell: kubectl apply --kubeconfig admin.kubeconfig -f /root/rbac.yml

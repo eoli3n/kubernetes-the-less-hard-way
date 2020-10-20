@@ -31,9 +31,9 @@ ec778b58d61b4683, started, tspeda-k8s-controller1, https://162.38.60.201:2380, h
 f1c47e23a339d1cf, started, tspeda-k8s-controller2, https://162.38.60.202:2380, https://162.38.60.202:2379, false
 ```
 
-##### Kubernetes
+##### Kubernetes Control Plane
 ```
-ansible-playbook 02-kubernetes.yml -l test
+ansible-playbook 02-kubernetes-controllers.yml -l test
 ```
 Test with
 ```
