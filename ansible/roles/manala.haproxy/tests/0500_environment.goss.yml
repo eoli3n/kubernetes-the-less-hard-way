@@ -1,0 +1,11 @@
+---
+
+file:
+  /etc/default/haproxy.test:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "/^CONFIG=\"/etc/haproxy/conf.d.test\"$/"

@@ -29,3 +29,12 @@
                   stats uri /
                   stats refresh 10s
                   stats admin if LOCALHOST
+          - file: 030-kubernetes.cfg
+            content: |
+              listen kubeapi
+                  mode tcp
+                  bind *:6443
+                  option tcp-check
+              {% for node in groups['controllers_test'] %}
+                  server {{node}} {{ hostvars[node]['ansible_facts']['default_ipv4']['address'] }} check port 6443 fall 3 rise 2
+              {% endfor %}

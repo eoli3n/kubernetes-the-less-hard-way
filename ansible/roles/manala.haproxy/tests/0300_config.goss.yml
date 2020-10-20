@@ -1,0 +1,11 @@
+---
+
+file:
+  /etc/haproxy/haproxy.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+    contains:
+      - "# Foo bar"

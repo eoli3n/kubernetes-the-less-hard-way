@@ -1,0 +1,14 @@
+---
+
+- name: "{{ test }}"
+  hosts: debian
+  become: true
+  vars:
+    manala_haproxy_config_template: fixtures/haproxy.cfg.j2
+  pre_tasks:
+    - import_tasks: pre_tasks/backports.yml
+  roles:
+    - manala.haproxy
+  post_tasks:
+    - name: Goss
+      command: goss --gossfile {{ test }}.goss.yml validate

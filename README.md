@@ -57,3 +57,10 @@ Connection: keep-alive
 Cache-Control: no-cache, private
 X-Content-Type-Options: nosniff
 ```
+
+##### HAProxy
+
+```
+ansible-galaxy install manala.haproxy -p roles
+ansible-playbook 03-haproxy.yml -l test
+```

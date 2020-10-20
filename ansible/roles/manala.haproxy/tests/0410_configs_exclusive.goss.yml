@@ -1,0 +1,13 @@
+---
+
+file:
+  /etc/haproxy/conf.d.test/foo.cfg:
+    exists: false
+  /etc/haproxy/conf.d.test/bar.cfg:
+    exists: true
+    filetype: file
+    owner: root
+    group: root
+    mode: "0644"
+  /etc/haproxy/conf.d.test/baz.cfg:
+    exists: false
