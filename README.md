@@ -64,3 +64,21 @@ X-Content-Type-Options: nosniff
 ansible-galaxy install manala.haproxy -p roles
 ansible-playbook 03-haproxy.yml -l test
 ```
+Test with
+```
+curl --cacert ca.pem https://162.38.60.207:6443/version
+```
+Returns
+```
+{
+  "major": "1",
+  "minor": "18",
+  "gitVersion": "v1.18.6",
+  "gitCommit": "dff82dc0de47299ab66c83c626e08b245ab19037",
+  "gitTreeState": "clean",
+  "buildDate": "2020-07-15T16:51:04Z",
+  "goVersion": "go1.13.9",
+  "compiler": "gc",
+  "platform": "linux/amd64"
+}
+```
