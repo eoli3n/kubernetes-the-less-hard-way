@@ -53,7 +53,7 @@ ansible-playbook 00-configure.yml
 
 **Etcd** : Install and configure etcd cluster.
 ```
-ansible-playbook 01-etcd.yml -l test
+ansible-playbook 01-etcd.yml
 ```
 Test with
 ```
