@@ -1,0 +1,16 @@
+{
+  "CN": "system:node:{{ hostvars[item].ansible_hostname }}",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "{{ C }}",
+      "L": "{{ L }}",
+      "O": "system:nodes",
+      "OU": "{{ OU }}",
+      "ST": "{{ ST }}"
+    }
+  ]
+}

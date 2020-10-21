@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Vars
+EXTERNAL_IP=$(dig +short tspeda-k8s-haproxy.infra.umontpellier.fr | tail -n1)
+HAPROXY_HOSTNAME=$(ansible -i ../ansible/hosts haproxy -l $INFRA --list-hosts | sed '1d' | tr -d ' ')
+WORKERS_HOSTNAMES=$(ansible -i ../ansible/hosts workers -l $INFRA --list-hosts | sed '1d' | tr -d ' ')
+CONTROLLERS_HOSTNAMES=$(ansible -i ../ansible/hosts workers -l $INFRA --list-hosts | sed '1d' | tr -d ' ')
+
 # Certificate Authority
 cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 

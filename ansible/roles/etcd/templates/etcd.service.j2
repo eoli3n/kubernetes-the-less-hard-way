@@ -5,7 +5,7 @@ Documentation=https://github.com/coreos
 [Service]
 Type=notify
 ExecStart=/usr/bin/etcd \
-  --name {{ ansible_hostname }} \
+  --name {{ ansible_host }} \
   --cert-file=/etc/etcd/kubernetes.pem \
   --key-file=/etc/etcd/kubernetes-key.pem \
   --peer-cert-file=/etc/etcd/kubernetes.pem \
