@@ -2,13 +2,15 @@
 
 Init shell configuration and ssh keys
 ```
-ansible-playbook 00-init.yml -l test
+ansible-playbook 00-init.yml
 ```
 
 ### SSL
 
 Generate Certificate Authority, Certificates, and kubeconfigs
-See [ssl-kubeconfig](ssl-kubeconfig/)
+```
+ansible-playbook 00-configure.yml
+```
 
 ### Install components
 
@@ -18,7 +20,7 @@ ansible-playbook 01-etcd.yml -l test
 ```
 Test with
 ```
-ansible controllers_test -m shell -a "ETCDCTL_API=3 etcdctl member list \
+ansible controllers -m shell -a "ETCDCTL_API=3 etcdctl member list \
     --endpoints=https://127.0.0.1:2379 \
     --cacert=/etc/etcd/ca.pem \
     --cert=/etc/etcd/kubernetes.pem \
@@ -33,11 +35,11 @@ f1c47e23a339d1cf, started, tspeda-k8s-controller2, https://162.38.60.202:2380, h
 
 ##### Kubernetes Control Plane
 ```
-ansible-playbook 02-kubernetes-controllers.yml -l test
+ansible-playbook 02-controllers.yml
 ```
 Test with
 ```
-ansible controllers_test -m shell -a 'kubectl get componentstatuses --kubeconfig admin.kubeconfig \
+ansible controllers -m shell -a 'kubectl get componentstatuses --kubeconfig admin.kubeconfig \
   && curl -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz'
 ```
 Returns on each
@@ -62,7 +64,7 @@ X-Content-Type-Options: nosniff
 
 ```
 ansible-galaxy install manala.haproxy -p roles
-ansible-playbook 03-haproxy.yml -l test
+ansible-playbook 03-haproxy.yml
 ```
 Test with
 ```
