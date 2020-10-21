@@ -1,0 +1,116 @@
+---
+- name: Generates Kubelet Configuration files
+  vars:
+    hostname: "{{ hostvars[item].ansible_hostname }}"
+    kubeconfig_file: "../kubeconfigs/{{ hostname }}.kubeconfig"
+    client_certificate: "../ssl/{{ hostname }}.pem"
+    client_key: "../ssl/{{ hostname }}-key.pem"
+  shell: |
+    kubectl config set-cluster {{ cluster_name }} \
+      --certificate-authority=ca.pem \
+      --embed-certs=true \
+      --server=https://{{ external_ip }}:6443 \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-credentials system:node:{{ hostname }} \
+      --client-certificate={{ client_certificate }} \
+      --client-key={{ client_key }} \
+      --embed-certs=true \
+      --kubeconfig={{ kubeconfig_file }}
+    kubectl config set-context default \
+      --cluster={{ cluster_name }} \
+      --user=system:node:{{ hostname }} \
+      --kubeconfig={{ kubeconfig_file }}
+    kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
+  loop: "{{ groups['workers'] }}"
+
+- name: Generates kube-proxy Configuration File
+  args:
+    name: "kube-proxy"
+    kubeconfig_file: "../kubeconfigs/{{ name }}.kubeconfig"
+    client_certificate: "../ssl/{{ name }}.pem"
+    client_key: "../ssl/{{ name }}-key.pem"
+  shell: |
+    kubectl config set-cluster {{ cluster_name }} \
+      --certificate-authority=ca.pem \
+      --embed-certs=true \
+      --server=https://{{ external_ip }}:6443 \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-credentials system:{{ name }} \
+      --client-certificate={{ client_certificate }} \
+      --client-key={{ client_key }} \
+      --embed-certs=true \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-context default \
+      --cluster={{ cluster_name }} \
+      --user=system:{{ name }} \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
+
+- name: Generates kube-controller-manager Configuration File
+  args:
+    name: "kube-controller-manager"
+    kubeconfig_file: "../kubeconfigs/{{ name }}.kubeconfig"
+    client_certificate: "../ssl/{{ name }}.pem"
+    client_key: "../ssl/{{ name }}-key.pem"
+  shell: |
+    kubectl config set-cluster {{ cluster_name }} \
+      --certificate-authority=ca.pem \
+      --embed-certs=true \
+      --server=https://127.0.0.1:6443 \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-credentials system:{{ name }} \
+      --client-certificate={{ client_certificate }} \
+      --client-key={{ client_key }} \
+      --embed-certs=true \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-context default \
+      --cluster={{ cluster_name }} \
+      --user=system:{{ name }} \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
+
+- name: Generates kube-scheduler Configuration File
+  args:
+    name: "kube-scheduler"
+    kubeconfig_file: "../kubeconfigs/{{ name }}.kubeconfig"
+    client_certificate: "../ssl/{{ name }}.pem"
+    client_key: "../ssl/{{ name }}-key.pem"
+  shell: |
+    kubectl config set-cluster {{ cluster_name }} \
+      --certificate-authority=ca.pem \
+      --embed-certs=true \
+      --server=https://127.0.0.1:6443 \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-credentials system:{{ name }} \
+      --client-certificate={{ client_certificate }} \
+      --client-key={{ client_key }} \
+      --embed-certs=true \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-context default \
+      --cluster={{ cluster_name }} \
+      --user=system:{{ name }} \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
+
+- name: Generates admin Configuration File
+  args:
+    name: "admin"
+    kubeconfig_file: "../kubeconfigs/{{ name }}.kubeconfig"
+    client_certificate: "../ssl/{{ name }}.pem"
+    client_key: "../ssl/{{ name }}-key.pem"
+  shell: |
+    kubectl config set-cluster {{ cluster_name }} \
+      --certificate-authority=ca.pem \
+      --embed-certs=true \
+      --server=https://127.0.0.1:6443 \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-credentials {{ name }} \
+      --client-certificate={{ client_certificate }} \
+      --client-key={{ client_key }} \
+      --embed-certs=true \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config set-context default \
+      --cluster={{ cluster_name }} \
+      --user={{ name }} \
+      --kubeconfig={{ kubeconfig_file }} && \
+    kubectl config use-context default --kubeconfig={{ kubeconfig_file }}

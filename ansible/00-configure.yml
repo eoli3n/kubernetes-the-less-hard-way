@@ -1,5 +1,5 @@
 ---
-- hosts: workers
+- hosts: all
   gather_facts: yes
 
 - hosts: localhost
@@ -7,3 +7,4 @@
 
   roles:
     - ssl
+    - kubeconfig

@@ -1,0 +1,5 @@
+---
+- name: Generate encryption key and config file
+  template:
+    src:
+    dest: 

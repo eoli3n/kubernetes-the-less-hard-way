@@ -1,4 +1,4 @@
----
 - hosts: controllers
   roles:
     - etcd
+    - kubernetes-controller

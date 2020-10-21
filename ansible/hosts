@@ -1,54 +1,18 @@
 all:
   vars:
-    domain: infra.umontpellier.fr
     ansible_host: "{{inventory_hostname}}.{{domain}}"
   hosts:
   children:
-    test:
-      children:
-        workers_test:
-        controllers_test:
-        haproxy_test:
-    prod:
-      children:
-        controllers_prod:
-        workers_prod:
-        haproxy_prod:
     haproxy:
-     children:
-       haproxy_test:
-       haproxy_prod:
-    haproxy_test:
       hosts:
         tspeda-k8s-haproxy:
-    haproxy_prod:
-      hosts:
-        prodpeda-k8s-haproxy:
-    kubernetes_test:
+    kubernetes:
       children:
-        controllers_test:
-        workers_test:
-    kubernetes_prod:
-      children:
-        controllers_prod:
-        workers_prod:
-    controllers_test:
+        controllers_:
+        workers:
+    controllers:
       hosts:
         tspeda-k8s-controller[1:3]:
-    workers_test:
+    workers:
       hosts:
         tspeda-k8s-worker[1:3]:
-    controllers_prod:
-      hosts:
-        prodpeda-k8s-controller[1:3]:
-    workers_prod:
-      hosts:
-        prodpeda-k8s-worker[1:3]:
-    controllers:
-      children:
-        controllers_test:
-        controllers_prod:
-    workers:
-      children:
-        workers_test:
-        workers_prod:

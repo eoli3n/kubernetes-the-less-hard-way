@@ -21,15 +21,79 @@
 - name: Template CSR files for workers
   template:
     src: worker-csr.json.j2
-    dest: '../ssl/csr/{{ hostvars[item].ansible_hostname }}.csr'
+    dest: '../ssl/csr/{{ hostvars[item].ansible_hostname }}.json'
   loop: "{{ groups['workers'] }}"
-  tags: test
 
-- name: Generate certificates
+- name: Generate Admin Certificate
+  shell: |
+    cfssl gencert -initca ca-csr.json | cfssljson -bare ca && \
+    cfssl gencert \
+      -ca=ca.pem \
+      -ca-key=ca-key.pem \
+      -config=ca-config.json \
+      -profile=kubernetes \
+      ../ssl/csr/admin-csr.json | cfssljson -bare ../ssl/admin
+
+- name: Generate Kubelet Client Certificate
+  vars:
+    hostname: "{{ hostvars[item].ansible_hostname }}"
+    internal_ip: "{{ hostvars[item].ansible_default_ipv4.address }}"
+  shell: |
+    cfssl gencert \
+      -ca=ca.pem \
+      -ca-key=ca-key.pem \
+      -config=ca-config.json \
+      -hostname={{ hostname }},{{ internal_ip }},{{ external_ip }} \
+      -profile=kubernetes \
+      ../ssl/csr/{{ hostname }}.json | cfssljson -bare ../ssl/{{ hostname }}
+  loop: "{{ groups['workers'] }}"
+
+- name: Generate Controller Manager Certificate
   shell: |
     cfssl gencert \
       -ca=ca.pem \
       -ca-key=ca-key.pem \
       -config=ca-config.json \
       -profile=kubernetes \
-      admin-csr.json | cfssljson -bare admin
+      ../ssl/csr/kube-controller-manager-csr.json | cfssljson -bare ../ssl/kube-controller-manager
+
+- name: Generate Kube Proxy Client Certificate
+  shell: |
+    cfssl gencert \
+      -ca=ca.pem \
+      -ca-key=ca-key.pem \
+      -config=ca-config.json \
+      -profile=kubernetes \
+      ../ssl/csr/kube-proxy-csr.json | cfssljson -bare ../ssl/kube-proxy
+
+- name: Generate Scheduler Client Certificate
+  shell: |
+    cfssl gencert \
+      -ca=ca.pem \
+      -ca-key=ca-key.pem \
+      -config=ca-config.json \
+      -profile=kubernetes \
+      ../ssl/csr/kube-scheduler-csr.json | cfssljson -bare ../ssl/kube-scheduler
+
+- name: Service Account Key Pair
+  shell: |
+    cfssl gencert \
+      -ca=ca.pem \
+      -ca-key=ca-key.pem \
+      -config=ca-config.json \
+      -profile=kubernetes \
+      ../ssl/csr/service-account-csr.json | cfssljson -bare ../ssl/service-account
+
+- name: Generate API Server Certificate
+  vars:
+    kubernetes_hostnames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster,kubernetes.svc.cluster.local"
+    hostname: "{{ hostvars[item].ansible_hostname }}"
+    controllers_ips: "{{ groups['controllers'] | map('extract', hostvars, ['ansible_facts', 'default_ipv4', 'address']) | join(',') }}"
+  shell: |
+    cfssl gencert \
+      -ca=ca.pem \
+      -ca-key=ca-key.pem \
+      -config=ca-config.json \
+      -hostname=10.32.0.1,{{ controllers_ips }},{{ external_ip }},127.0.0.1,{{ kubernetes_hostnames }} \
+      -profile=kubernetes \
+      ../ssl/csr/kubernetes-csr.json | cfssljson -bare ../ssl/kubernetes
