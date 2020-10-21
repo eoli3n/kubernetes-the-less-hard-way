@@ -67,12 +67,9 @@
     remote_src: yes
 
 - name: Copy Containerd binary
-  copy:
-    src: '{{ item }}'
-    dest: /usr/bin/
-    remote_src: yes
-  with_fileglob:
-    - "/tmp/containerd/bin/*"
+  shell: cp /tmp/containerd/bin/* /usr/bin/
+  args:
+    creates: /usr/bin/containerd
 
 - name: Extract crictl
   unarchive:
