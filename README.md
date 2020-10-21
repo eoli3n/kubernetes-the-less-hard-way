@@ -47,6 +47,11 @@ To access services from outside, you should open in your firewall:
 
 ## Run Ansible playbooks
 
+Install SSH, authorize your SSH public key, then test if VMs are working.
+```
+ansible all -m ping
+```
+
 **SSL** : Generate Certificate Authority, Certificates, and kubeconfigs.
 ```
 ansible-playbook 00-configure.yml
