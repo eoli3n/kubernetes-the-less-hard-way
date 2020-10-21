@@ -8,3 +8,34 @@
   roles:
     - ssl
     - kubeconfig
+    - encryption
+
+- hosts: workers
+  tasks:
+    - name: Distribute to worker nodes
+      copy:
+        src: '{{ item }}'
+        dest: /root
+      loop:
+        - ../ssl/ca.pem
+        - ../ssl/{{ ansible_hostname }}.pem
+        - ../ssl/{{ ansible_hostname }}-key.pem
+        - ../kubeconfig/{{ ansible_hostname }}.kubeconfig
+
+- hosts: controllers
+  tasks:
+    - name: Distribute to worker nodes
+      copy:
+        src: '{{ item }}'
+        dest: /root
+      loop:
+        - ../ssl/ca.pem
+        - ../ssl/ca-key.pem
+        - ../ssl/kubernetes.pem
+        - ../ssl/kubernetes-key.pem
+        - ../ssl/service-account.pem
+        - ../ssl/service-account-key.pem
+        - ../kubeconfig/admin.kubeconfig
+        - ../kubeconfig/kube-controller-manager.kubeconfig
+        - ../kubeconfig/kube-scheduler.kubeconfig
+        - ../ssl/encryption-config.yaml

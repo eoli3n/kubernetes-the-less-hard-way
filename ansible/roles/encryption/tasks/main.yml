@@ -1,5 +1,11 @@
 ---
+- name: Generate random passphrase
+  shell: head -c 32 /dev/urandom | base64
+  register: output
+
 - name: Generate encryption key and config file
+  vars:
+    encryption_key: "{{ output.stdout }}"
   template:
-    src:
-    dest: 
+    src: encryption-config.yaml.j2
+    dest: ../ssl/encryption-config.yaml

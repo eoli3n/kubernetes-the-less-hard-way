@@ -44,8 +44,11 @@
     - kubernetes.pem
 
 - name: Template etcd.service
+  vars:
+    initial_cluster: "{% for node in groups['controllers'] %}{{ hostvars[node].ansible_hostname }}=https://{{ hostvars[node].ansible_default_ipv4.address }}:2380{% if not loop.last %},{% endif %}{% endfor %}"
   template:
     src: etcd.service.j2
     dest: /etc/systemd/system/etcd.service
   notify:
     - restart etcd
+  tags: test

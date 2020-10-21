@@ -5,7 +5,7 @@ Documentation=https://github.com/coreos
 [Service]
 Type=notify
 ExecStart=/usr/bin/etcd \
-  --name {{ ansible_host }} \
+  --name {{ ansible_hostname }} \
   --cert-file=/etc/etcd/kubernetes.pem \
   --key-file=/etc/etcd/kubernetes-key.pem \
   --peer-cert-file=/etc/etcd/kubernetes.pem \
@@ -19,7 +19,7 @@ ExecStart=/usr/bin/etcd \
   --listen-client-urls https://{{ ansible_default_ipv4.address }}:2379,https://127.0.0.1:2379 \
   --advertise-client-urls https://{{ ansible_default_ipv4.address }}:2379 \
   --initial-cluster-token etcd-cluster-0 \
-  --initial-cluster tspeda-k8s-controller1=https://162.38.60.201:2380,tspeda-k8s-controller2=https://162.38.60.202:2380,tspeda-k8s-controller3=https://162.38.60.203:2380 \
+  --initial-cluster {{ initial_cluster }} \
   --initial-cluster-state new \
   --data-dir=/var/lib/etcd
 Restart=on-failure

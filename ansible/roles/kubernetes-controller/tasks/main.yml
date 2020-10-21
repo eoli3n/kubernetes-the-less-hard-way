@@ -35,6 +35,8 @@
     - kube-scheduler.kubeconfig
 
 - name: Create Kubernetes API Service
+  vars:
+    etcd-servers: "{% for node in groups['controllers'] %}https://{{ hostvars[node].ansible_default_ipv4.address }}:2379{% if not loop.last %},{% endif %}{% endfor %}"
   template:
     src: kube-apiserver.service.j2
     dest: /etc/systemd/system/kube-apiserver.service
