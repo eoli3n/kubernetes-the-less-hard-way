@@ -1,12 +1,12 @@
 ---
-- hosts: kubernetes_test:kubernetes_prod
+- hosts: kubernetes
   tasks:
     - name: Gather network facts
       setup:
         gather_subset:
           - network
 
-- hosts: haproxy_test:haproxy_prod
+- hosts: haproxy
   roles:
     # https://github.com/manala/ansible-role-haproxy
     - role: manala.haproxy
