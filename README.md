@@ -57,11 +57,11 @@ ansible all -m ping
 ansible-playbook 00-configure.yml
 ```
 
-**Etcd** : Install and configure etcd cluster.
+**Kubernetes Control Plane and etcd** : Install and configure Kubernetes controllers.
 ```
-ansible-playbook 01-etcd.yml
+ansible-playbook 01-controllers.yml
 ```
-Test with
+Test etcd with
 ```
 ansible controllers -m shell -a "ETCDCTL_API=3 etcdctl member list \
     --endpoints=https://127.0.0.1:2379 \
@@ -76,11 +76,7 @@ ec778b58d61b4683, started, k8s-controller1, https://X.X.X.X:2380, https://X.X.X.
 f1c47e23a339d1cf, started, k8s-controller2, https://X.X.X.X:2380, https://X.X.X.X:2379, false
 ```
 
-**Kubernetes Control Plane** : Install and configure Kubernetes controllers.
-```
-ansible-playbook 01-controllers.yml
-```
-Test with
+Test control plane with
 ```
 ansible controllers -m shell -a 'kubectl get componentstatuses --kubeconfig admin.kubeconfig \
   && curl -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz'
