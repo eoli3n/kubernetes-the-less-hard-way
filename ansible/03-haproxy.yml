@@ -35,6 +35,6 @@
                   mode tcp
                   bind *:6443
                   option tcp-check
-              {% for node in groups['controllers_test'] %}
+              {% for node in groups['controllers'] %}
                   server {{node}} {{ hostvars[node]['ansible_facts']['default_ipv4']['address'] }} check port 6443 fall 3 rise 2
               {% endfor %}

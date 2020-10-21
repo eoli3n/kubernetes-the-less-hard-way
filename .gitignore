@@ -1,2 +1,4 @@
 ./ssl/*
 ./kubeconfig/*
+./ansible/hosts
+./ansible/group_vars/all.yml

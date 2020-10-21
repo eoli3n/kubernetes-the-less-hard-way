@@ -5,14 +5,14 @@ all:
   children:
     haproxy:
       hosts:
-        tspeda-k8s-haproxy:
+        k8s-haproxy:
     kubernetes:
       children:
         controllers:
         workers:
     controllers:
       hosts:
-        tspeda-k8s-controller[1:3]:
+        k8s-controller[1:3]:
     workers:
       hosts:
-        tspeda-k8s-worker[1:3]:
+        k8s-worker[1:3]:
