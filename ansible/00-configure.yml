@@ -24,7 +24,7 @@
 
 - hosts: controllers
   tasks:
-    - name: Distribute to worker nodes
+    - name: Distribute to control plane
       copy:
         src: '{{ item }}'
         dest: /root

@@ -36,14 +36,14 @@
 
 - name: Create Kubernetes API Service
   vars:
-    etcd-servers: "{% for node in groups['controllers'] %}https://{{ hostvars[node].ansible_default_ipv4.address }}:2379{% if not loop.last %},{% endif %}{% endfor %}"
+    etcd_servers: "{% for node in groups['controllers'] %}https://{{ hostvars[node].ansible_default_ipv4.address }}:2379{% if not loop.last %},{% endif %}{% endfor %}"
   template:
     src: kube-apiserver.service.j2
     dest: /etc/systemd/system/kube-apiserver.service
   notify:
     - restart kube-apiserver
 
-- name: Create Kuneretes Controller Manager Service
+- name: Create Kubernetes Controller Manager Service
   copy:
     src: kube-controller-manager.service
     dest: /etc/systemd/system/
@@ -84,6 +84,11 @@
   copy:
     src: rbac.yml
     dest: /root/
+
+- meta: flush_handlers
+
+- pause: seconds=12
+  run_once: true
 
 - name: Apply RBAC authorization manifest
   shell: kubectl apply --kubeconfig admin.kubeconfig -f /root/rbac.yml
