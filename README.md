@@ -65,9 +65,9 @@ ansible controllers -m shell -a "ETCDCTL_API=3 etcdctl member list \
 ```
 Returns on each
 ```
-dd5995046894cdd4, started, tspeda-k8s-controller3, https://162.38.60.203:2380, https://162.38.60.203:2379, false
-ec778b58d61b4683, started, tspeda-k8s-controller1, https://162.38.60.201:2380, https://162.38.60.201:2379, false
-f1c47e23a339d1cf, started, tspeda-k8s-controller2, https://162.38.60.202:2380, https://162.38.60.202:2379, false
+dd5995046894cdd4, started, k8s-controller3, https://X.X.X.X:2380, https://162.38.60.203:2379, false
+ec778b58d61b4683, started, k8s-controller1, https://X.X.X.X:2380, https://162.38.60.201:2379, false
+f1c47e23a339d1cf, started, k8s-controller2, https://X.X.X.X:2380, https://162.38.60.202:2379, false
 ```
 
 **Kubernetes Control Plane** : Install and configure Kubernetes controllers.
