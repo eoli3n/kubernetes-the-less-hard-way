@@ -20,8 +20,9 @@ The whole process with ansible playbooks hosted on local VMs instead of [Google 
 
 ## Configuration
 
-Copy configuration template files.
+Create dirs and copy configuration template files.
 ```
+mkdir -p ssl/csr kubeconfigs
 cp ansible/hosts.template ansible/hosts
 cp ansible/group_vars/all.yml.template ansible/group_vars/all.yml
 ```
