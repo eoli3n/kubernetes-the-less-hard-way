@@ -3,8 +3,8 @@
   vars:
     hostname: "{{ hostvars[item].ansible_hostname }}"
     kubeconfig_file: "../kubeconfigs/{{ hostname }}.kubeconfig"
-    client_certificate: "../ssl/{{ hostname }}.pem"
-    client_key: "../ssl/{{ hostname }}-key.pem"
+    client_certificate: "{{ hostname }}.pem"
+    client_key: "{{ hostname }}-key.pem"
   shell: |
     kubectl config set-cluster {{ cluster_name }} \
       --certificate-authority=ca.pem \
@@ -22,13 +22,15 @@
       --kubeconfig={{ kubeconfig_file }}
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
   loop: "{{ groups['workers'] }}"
+  args:
+    chdir: ../ssl
 
 - name: Generates kube-proxy Configuration File
-  args:
+  vars:
     name: "kube-proxy"
     kubeconfig_file: "../kubeconfigs/{{ name }}.kubeconfig"
-    client_certificate: "../ssl/{{ name }}.pem"
-    client_key: "../ssl/{{ name }}-key.pem"
+    client_certificate: "{{ name }}.pem"
+    client_key: "{{ name }}-key.pem"
   shell: |
     kubectl config set-cluster {{ cluster_name }} \
       --certificate-authority=ca.pem \
@@ -45,13 +47,15 @@
       --user=system:{{ name }} \
       --kubeconfig={{ kubeconfig_file }} && \
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
+  args:
+    chdir: ../ssl
 
 - name: Generates kube-controller-manager Configuration File
-  args:
+  vars:
     name: "kube-controller-manager"
     kubeconfig_file: "../kubeconfigs/{{ name }}.kubeconfig"
-    client_certificate: "../ssl/{{ name }}.pem"
-    client_key: "../ssl/{{ name }}-key.pem"
+    client_certificate: "{{ name }}.pem"
+    client_key: "{{ name }}-key.pem"
   shell: |
     kubectl config set-cluster {{ cluster_name }} \
       --certificate-authority=ca.pem \
@@ -68,13 +72,15 @@
       --user=system:{{ name }} \
       --kubeconfig={{ kubeconfig_file }} && \
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
+  args:
+    chdir: ../ssl
 
 - name: Generates kube-scheduler Configuration File
-  args:
+  vars:
     name: "kube-scheduler"
     kubeconfig_file: "../kubeconfigs/{{ name }}.kubeconfig"
-    client_certificate: "../ssl/{{ name }}.pem"
-    client_key: "../ssl/{{ name }}-key.pem"
+    client_certificate: "{{ name }}.pem"
+    client_key: "{{ name }}-key.pem"
   shell: |
     kubectl config set-cluster {{ cluster_name }} \
       --certificate-authority=ca.pem \
@@ -91,13 +97,15 @@
       --user=system:{{ name }} \
       --kubeconfig={{ kubeconfig_file }} && \
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
+  args:
+    chdir: ../ssl
 
 - name: Generates admin Configuration File
-  args:
+  vars:
     name: "admin"
     kubeconfig_file: "../kubeconfigs/{{ name }}.kubeconfig"
-    client_certificate: "../ssl/{{ name }}.pem"
-    client_key: "../ssl/{{ name }}-key.pem"
+    client_certificate: "{{ name }}.pem"
+    client_key: "{{ name }}-key.pem"
   shell: |
     kubectl config set-cluster {{ cluster_name }} \
       --certificate-authority=ca.pem \
@@ -114,3 +122,5 @@
       --user={{ name }} \
       --kubeconfig={{ kubeconfig_file }} && \
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
+  args:
+    chdir: ../ssl

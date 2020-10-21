@@ -20,7 +20,7 @@
         - ../ssl/ca.pem
         - ../ssl/{{ ansible_hostname }}.pem
         - ../ssl/{{ ansible_hostname }}-key.pem
-        - ../kubeconfig/{{ ansible_hostname }}.kubeconfig
+        - ../kubeconfigs/{{ ansible_hostname }}.kubeconfig
 
 - hosts: controllers
   tasks:
@@ -35,7 +35,7 @@
         - ../ssl/kubernetes-key.pem
         - ../ssl/service-account.pem
         - ../ssl/service-account-key.pem
-        - ../kubeconfig/admin.kubeconfig
-        - ../kubeconfig/kube-controller-manager.kubeconfig
-        - ../kubeconfig/kube-scheduler.kubeconfig
+        - ../kubeconfigs/admin.kubeconfig
+        - ../kubeconfigs/kube-controller-manager.kubeconfig
+        - ../kubeconfigs/kube-scheduler.kubeconfig
         - ../ssl/encryption-config.yaml

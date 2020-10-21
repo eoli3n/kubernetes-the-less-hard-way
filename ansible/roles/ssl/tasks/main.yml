@@ -18,6 +18,11 @@
     - { src: 'kubernetes-csr.json.j2', dest: 'kubernetes-csr.json' }
     - { src: 'service-account-csr.json.j2', dest: 'service-account-csr.json' }
 
+- name: Copy CA Configuration file
+  copy:
+    src: ca-config.json
+    dest: ../ssl/
+
 - name: Template CSR files for workers
   template:
     src: worker-csr.json.j2
@@ -26,13 +31,15 @@
 
 - name: Generate Admin Certificate
   shell: |
-    cfssl gencert -initca ca-csr.json | cfssljson -bare ca && \
+    cfssl gencert -initca csr/ca-csr.json | cfssljson -bare ca && \
     cfssl gencert \
       -ca=ca.pem \
       -ca-key=ca-key.pem \
       -config=ca-config.json \
       -profile=kubernetes \
-      ../ssl/csr/admin-csr.json | cfssljson -bare ../ssl/admin
+      csr/admin-csr.json | cfssljson -bare admin
+  args:
+    chdir: ../ssl
 
 - name: Generate Kubelet Client Certificate
   vars:
@@ -45,7 +52,9 @@
       -config=ca-config.json \
       -hostname={{ hostname }},{{ internal_ip }},{{ external_ip }} \
       -profile=kubernetes \
-      ../ssl/csr/{{ hostname }}.json | cfssljson -bare ../ssl/{{ hostname }}
+      csr/{{ hostname }}.json | cfssljson -bare {{ hostname }}
+  args:
+    chdir: ../ssl
   loop: "{{ groups['workers'] }}"
 
 - name: Generate Controller Manager Certificate
@@ -55,7 +64,9 @@
       -ca-key=ca-key.pem \
       -config=ca-config.json \
       -profile=kubernetes \
-      ../ssl/csr/kube-controller-manager-csr.json | cfssljson -bare ../ssl/kube-controller-manager
+      csr/kube-controller-manager-csr.json | cfssljson -bare kube-controller-manager
+  args:
+    chdir: ../ssl
 
 - name: Generate Kube Proxy Client Certificate
   shell: |
@@ -64,7 +75,9 @@
       -ca-key=ca-key.pem \
       -config=ca-config.json \
       -profile=kubernetes \
-      ../ssl/csr/kube-proxy-csr.json | cfssljson -bare ../ssl/kube-proxy
+      csr/kube-proxy-csr.json | cfssljson -bare kube-proxy
+  args:
+    chdir: ../ssl
 
 - name: Generate Scheduler Client Certificate
   shell: |
@@ -73,7 +86,9 @@
       -ca-key=ca-key.pem \
       -config=ca-config.json \
       -profile=kubernetes \
-      ../ssl/csr/kube-scheduler-csr.json | cfssljson -bare ../ssl/kube-scheduler
+      csr/kube-scheduler-csr.json | cfssljson -bare kube-scheduler
+  args:
+    chdir: ../ssl
 
 - name: Service Account Key Pair
   shell: |
@@ -82,7 +97,9 @@
       -ca-key=ca-key.pem \
       -config=ca-config.json \
       -profile=kubernetes \
-      ../ssl/csr/service-account-csr.json | cfssljson -bare ../ssl/service-account
+      csr/service-account-csr.json | cfssljson -bare service-account
+  args:
+    chdir: ../ssl
 
 - name: Generate API Server Certificate
   vars:
@@ -96,4 +113,6 @@
       -config=ca-config.json \
       -hostname=10.32.0.1,{{ controllers_ips }},{{ external_ip }},127.0.0.1,{{ kubernetes_hostnames }} \
       -profile=kubernetes \
-      ../ssl/csr/kubernetes-csr.json | cfssljson -bare ../ssl/kubernetes
+      csr/kubernetes-csr.json | cfssljson -bare kubernetes
+  args:
+    chdir: ../ssl
