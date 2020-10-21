@@ -1,4 +1,4 @@
 ssl/*
-kubeconfig/*
+kubeconfigs/*
 ansible/hosts
 ansible/group_vars/all.yml
