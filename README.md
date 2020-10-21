@@ -3,6 +3,7 @@ IN PROGRESS
 # Kubernetes The (Less) Hard Way
 
 From https://github.com/kelseyhightower/kubernetes-the-hard-way
+
 The whole process with ansible playbooks hosted on local VMs instead of [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine).
 
 ## VMs provisionning
@@ -45,14 +46,12 @@ To access services from outside, you should open in your firewall:
 
 ## Run Ansible playbooks
 
-**SSL**
-Generate Certificate Authority, Certificates, and kubeconfigs.
+**SSL** : Generate Certificate Authority, Certificates, and kubeconfigs.
 ```
 ansible-playbook 00-configure.yml
 ```
 
-**Etcd**
-Install and configure etcd cluster.
+**Etcd** : Install and configure etcd cluster.
 ```
 ansible-playbook 01-etcd.yml -l test
 ```
@@ -71,8 +70,7 @@ ec778b58d61b4683, started, tspeda-k8s-controller1, https://162.38.60.201:2380, h
 f1c47e23a339d1cf, started, tspeda-k8s-controller2, https://162.38.60.202:2380, https://162.38.60.202:2379, false
 ```
 
-**Kubernetes Control Plane**
-Install and configure Kubernetes controllers.
+**Kubernetes Control Plane** : Install and configure Kubernetes controllers.
 ```
 ansible-playbook 01-controllers.yml
 ```
@@ -99,14 +97,12 @@ Cache-Control: no-cache, private
 X-Content-Type-Options: nosniff
 ```
 
-**Kubernetes Worker Nodes**
-Install and configure Kubernetes worker nodes.
+**Kubernetes Worker Nodes** : Install and configure Kubernetes worker nodes.
 ```
 ansible-playbook 02-workers
 ```
 
-**HAProxy**
-Install and configure HA proxy in front of controllers.
+**HAProxy** : Install and configure HA proxy in front of controllers.
 
 ```
 ansible-galaxy install manala.haproxy -p roles
