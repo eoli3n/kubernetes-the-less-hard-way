@@ -194,6 +194,9 @@ Test with
 ```
 kubectl get pods -l k8s-app=kube-dns -n kube-system
 ```
-Returns on each
+Returns
 ```
+NAME                       READY   STATUS    RESTARTS   AGE
+coredns-85b4878f78-2jlgx   1/1     Running   0          105s
 ```
+Then see [Kubernetes The Hard Way #Dns Addon verification](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/12-dns-addon.md#verification)
