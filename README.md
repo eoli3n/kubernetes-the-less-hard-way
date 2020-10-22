@@ -103,27 +103,12 @@ Cache-Control: no-cache, private
 X-Content-Type-Options: nosniff
 ```
 
-**Kubernetes Worker Nodes** : Install and configure Kubernetes worker nodes.
-```
-ansible-playbook 02-workers
-```
-Test with
-```
-ansible controllers -m shell -a "kubectl get nodes --kubeconfig admin.kubeconfig"
-```
-Returns on each
-```
-NAME                 STATUS   ROLES    AGE     VERSION
-k8s-worker1   Ready    <none>   2m27s   v1.18.6
-k8s-worker2   Ready    <none>   2m17s   v1.18.6
-k8s-worker3   Ready    <none>   2m17s   v1.18.6
-```
-
 **HAProxy** : Install and configure HA proxy in front of controllers.
 
 ```
 ansible-galaxy install manala.haproxy -p roles
-ansible-playbook 03-haproxy.yml
+ansible-playbook 02-haproxy.yml
+ansible haproxy -m shell -a "systemctl restart haproxy"
 ```
 Test with
 ```
@@ -142,6 +127,23 @@ Returns
   "compiler": "gc",
   "platform": "linux/amd64"
 }
+```
+
+**Kubernetes Worker Nodes** : Install and configure Kubernetes worker nodes.
+```
+ansible-playbook 03-workers.yml
+ansible workers -m shell -a "systemctl restart kubelet kube-proxy"
+```
+Test with
+```
+ansible controllers -m shell -a "kubectl get nodes --kubeconfig admin.kubeconfig"
+```
+Returns on each
+```
+NAME                 STATUS   ROLES    AGE     VERSION
+k8s-worker1   Ready    <none>   2m27s   v1.18.6
+k8s-worker2   Ready    <none>   2m17s   v1.18.6
+k8s-worker3   Ready    <none>   2m17s   v1.18.6
 ```
 
 **Remote Access** : Configure kubectl on your host
@@ -181,4 +183,17 @@ Returns on each
 10.200.204.0/24 via X.X.X.205 dev ens3 
 10.200.205.0/24 via X.X.X.205 dev ens3 
 10.200.206.0/24 via X.X.X.205 dev ens3
+```
+
+**CoreDNS** : Deploy DNS cluster Add-On
+```
+ansible-playbook 06-dns.yml
+```
+
+Test with
+```
+kubectl get pods -l k8s-app=kube-dns -n kube-system
+```
+Returns on each
+```
 ```

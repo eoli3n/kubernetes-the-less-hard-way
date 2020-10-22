@@ -1,7 +1,4 @@
 ---
-- hosts: all
-  gather_facts: yes
-
 - hosts: localhost
   connection: local
 
