@@ -143,3 +143,22 @@ Returns
   "platform": "linux/amd64"
 }
 ```
+
+**Remote Access** : Configure kubectl on your host
+
+```
+ansible-playbook 04-remote.yml
+```
+Test with
+```
+kubectl get componentstatuses
+```
+Returns
+```
+NAME                 STATUS    MESSAGE             ERROR
+scheduler            Healthy   ok                  
+controller-manager   Healthy   ok                  
+etcd-2               Healthy   {"health":"true"}   
+etcd-1               Healthy   {"health":"true"}   
+etcd-0               Healthy   {"health":"true"}
+```
