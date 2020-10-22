@@ -95,16 +95,19 @@
   template:
     src: 10-bridge.conf.j2
     dest: /etc/cni/net.d/10-bridge.conf
+  notify: restart containerd
 
 - name: Configure CNI Plugin loopback
   copy:
     src: 99-loopback.conf
     dest: /etc/cni/net.d/
+  notify: restart containerd
 
 - name: Configure containerd
   copy:
     src: config.toml
     dest: /etc/containerd/
+  notify: restart containerd
 
 - name: Install containerd service
   copy:
@@ -118,19 +121,25 @@
     dest: '{{ item.dest }}'
     remote_src: yes
   loop:
+    - { src: "{{ ansible_hostname }}.pem", dest: "/var/lib/kubelet/" }
     - { src: "{{ ansible_hostname }}-key.pem", dest: "/var/lib/kubelet/" }
     - { src: "{{ ansible_hostname }}.kubeconfig", dest: "/var/lib/kubelet/kubeconfig" }
     - { src: "ca.pem", dest: "/var/lib/kubernetes" }
+  tags: kubelet
+  notify: restart kubelet
 
 - name: Configure Kubelet
   template:
     src: kubelet-config.yaml.j2
     dest: /var/lib/kubelet/kubelet-config.yaml
+  tags: kubelet
+  notify: restart kubelet
 
 - name: Copy Kubelet service
   copy:
     src: kubelet.service
     dest: /etc/systemd/system/
+  tags: kubelet
   notify: restart kubelet
 
 - name: Copy Kubeproxy configuration file
@@ -138,14 +147,19 @@
     src: kube-proxy.kubeconfig
     dest: /var/lib/kube-proxy/kubeconfig
     remote_src: yes
+  tags: kube-proxy
+  notify: restart kube-proxy
 
 - name: Configure Kubeproxy
   copy:
     src: kube-proxy-config.yaml
     dest: /var/lib/kube-proxy/kube-proxy-config.yaml
+  tags: kube-proxy
+  notify: restart kube-proxy
 
 - name: Copy Kubeproxy service
   copy:
     src: kube-proxy.service
     dest: /etc/systemd/system/
+  tags: kube-proxy
   notify: restart kube-proxy

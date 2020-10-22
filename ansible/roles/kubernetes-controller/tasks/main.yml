@@ -33,6 +33,11 @@
     - encryption-config.yaml
     - kube-controller-manager.kubeconfig
     - kube-scheduler.kubeconfig
+  notify: 
+    - restart kube-apiserver
+    - restart kube-controller-manager
+    - restart kube-scheduler
+    - restart nginx
 
 - name: Create Kubernetes API Service
   vars:
@@ -40,27 +45,25 @@
   template:
     src: kube-apiserver.service.j2
     dest: /etc/systemd/system/kube-apiserver.service
-  notify:
-    - restart kube-apiserver
+  notify: restart kube-apiserver
 
 - name: Create Kubernetes Controller Manager Service
   copy:
     src: kube-controller-manager.service
     dest: /etc/systemd/system/
-  notify:
-    - restart kube-controller-manager
+  notify: restart kube-controller-manager
 
 - name: Copy Kubernetes Scheduler Config
   copy:
     src: kube-scheduler.yaml
     dest: /etc/kubernetes/config/
+  notify: restart kube-scheduler
 
 - name: Create Kubernetes Scheduler Service
   copy:
     src: kube-scheduler.service
     dest: /etc/systemd/system/
-  notify:
-    - restart kube-scheduler
+  notify: restart kube-scheduler
 
 - name: Install nginx
   apt:
@@ -77,8 +80,7 @@
     src: /etc/nginx/sites-available/kubernetes.default.svc.cluster.local
     dest: /etc/nginx/sites-enabled/kubernetes.default.svc.cluster.local
     state: link
-  notify:
-    - restart nginx
+  notify: restart nginx
 
 - name: Copy RBAC yml authorization manifest
   copy:

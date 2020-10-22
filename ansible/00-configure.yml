@@ -22,6 +22,7 @@
         - ../ssl/{{ ansible_hostname }}-key.pem
         - ../kubeconfigs/{{ ansible_hostname }}.kubeconfig
         - ../kubeconfigs/kube-proxy.kubeconfig
+      tags: distribute
 
 - hosts: controllers
   tasks:
@@ -40,3 +41,4 @@
         - ../kubeconfigs/kube-controller-manager.kubeconfig
         - ../kubeconfigs/kube-scheduler.kubeconfig
         - ../ssl/encryption-config.yaml
+      tags: distribute

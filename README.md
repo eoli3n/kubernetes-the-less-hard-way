@@ -107,6 +107,17 @@ X-Content-Type-Options: nosniff
 ```
 ansible-playbook 02-workers
 ```
+Test with
+```
+ansible controllers -m shell -a "kubectl get nodes --kubeconfig admin.kubeconfig"
+```
+Returns on each
+```
+NAME                 STATUS   ROLES    AGE     VERSION
+k8s-worker1   Ready    <none>   2m27s   v1.18.6
+k8s-worker2   Ready    <none>   2m17s   v1.18.6
+k8s-worker3   Ready    <none>   2m17s   v1.18.6
+```
 
 **HAProxy** : Install and configure HA proxy in front of controllers.
 
