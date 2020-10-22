@@ -166,3 +166,19 @@ tspeda-k8s-worker1   Ready    <none>   18m   v1.18.6
 tspeda-k8s-worker2   Ready    <none>   18m   v1.18.6
 tspeda-k8s-worker3   Ready    <none>   18m   v1.18.6
 ```
+
+**Pod routes** : Add routes between pod subnets
+```
+ansible-playbook 05-pod-routes.yml
+```
+
+Test with
+```
+ansible workers -m shell -a "ip route"
+```
+Returns on each
+```
+10.200.204.0/24 via X.X.X.205 dev ens3 
+10.200.205.0/24 via X.X.X.205 dev ens3 
+10.200.206.0/24 via X.X.X.205 dev ens3
+```

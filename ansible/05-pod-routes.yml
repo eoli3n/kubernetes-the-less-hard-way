@@ -1,0 +1,5 @@
+---
+- hosts: workers
+  gather_facts: yes
+  roles:
+    - pod-routes

@@ -1,0 +1,7 @@
+---
+- name: Create POD routes on workers
+  vars:
+    internal_ip: "{{ ansible_default_ipv4.address }}"
+    pod_cidr: "10.200{{ hostvars[item].ansible_default_ipv4.address | splitext | last }}.0/24"
+  shell: ip route add {{ pod_cidr }} via {{ internal_ip }}
+  loop: "{{ groups['workers'] }}"
