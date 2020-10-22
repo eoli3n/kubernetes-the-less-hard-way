@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+
+  tasks:
+    - name: get coredns
+      git:
+        repo: https://github.com/coredns/deployment
+        dest: /tmp/coredns
+        clone: yes
+
+    - name: install coredns
+      shell: /tmp/coredns/kubernetes/deploy.sh -i 10.32.0.10 | kubectl apply -f -
+
