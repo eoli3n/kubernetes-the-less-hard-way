@@ -1,4 +1,9 @@
 ---
+- name: Create kubeconfigs subdir
+  file:
+    path: ../kubeconfigs
+    state: directory
+
 - name: Generates Kubelet Configuration files
   vars:
     hostname: "{{ hostvars[item].ansible_hostname }}"

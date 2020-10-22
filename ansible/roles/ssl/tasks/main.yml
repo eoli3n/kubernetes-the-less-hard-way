@@ -18,6 +18,14 @@
     - { src: 'kubernetes-csr.json.j2', dest: 'kubernetes-csr.json' }
     - { src: 'service-account-csr.json.j2', dest: 'service-account-csr.json' }
 
+- name: Create ssl subdir
+  file:
+    path: '{{ item }}'
+    state: directory
+  loop:
+    - ../ssl
+    - ../ssl/csr
+
 - name: Copy CA Configuration file
   copy:
     src: ca-config.json
