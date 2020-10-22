@@ -106,12 +106,13 @@
     kubernetes_hostnames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster,kubernetes.svc.cluster.local"
     hostname: "{{ hostvars[item].ansible_hostname }}"
     controllers_ips: "{{ groups['controllers'] | map('extract', hostvars, ['ansible_facts', 'default_ipv4', 'address']) | join(',') }}"
+    controllers_hostnames: "{{ groups['controllers'] | map('extract', hostvars, ['ansible_facts', 'hostname']) | join(',') }}"
   shell: |
     cfssl gencert \
       -ca=ca.pem \
       -ca-key=ca-key.pem \
       -config=ca-config.json \
-      -hostname=10.32.0.1,{{ controllers_ips }},{{ external_ip }},127.0.0.1,{{ kubernetes_hostnames }} \
+      -hostname=10.32.0.1,{{ controllers_ips }},{{ external_ip }},127.0.0.1,{{ kubernetes_hostnames }},{{ controllers_hostnames }},{{external_hostname}},{{external_fqdn}} \
       -profile=kubernetes \
       csr/kubernetes-csr.json | cfssljson -bare kubernetes
   args:

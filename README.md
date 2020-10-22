@@ -54,6 +54,8 @@ Install SSH, authorize your SSH public key, then test if VMs are reachable.
 ansible all -m ping
 ```
 
+Please read playbooks before running.
+
 **SSL** : Generate Certificate Authority, Certificates, and kubeconfigs.
 ```
 ansible-playbook 00-configure.yml

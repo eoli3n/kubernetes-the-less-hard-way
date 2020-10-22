@@ -1,3 +1,8 @@
+# Don't touch those unless you know what you're doing
+external_ip: "{{ hostvars[groups['haproxy'][0]].ansible_default_ipv4.address }}"
+external_fqdn: "{{ hostvars[groups['haproxy'][0]].ansible_fqdn }}"
+external_hostname: "{{ hostvars[groups['haproxy'][0]].ansible_hostname }}"
+
+# Configure here
 domain: "domain.fr"
 cluster_name: "KTLHW"
-external_ip: "{{ hostvars[groups['haproxy'][0]].ansible_default_ipv4.address }}"

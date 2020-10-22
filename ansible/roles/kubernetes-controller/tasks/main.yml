@@ -18,7 +18,7 @@
     - /etc/kubernetes/config/
     - /var/lib/kubernetes/
 
-- name: Configure Kubernets API Server
+- name: Configure Kubernetes API Server
   copy:
     src: '/root/{{ item }}'
     dest: /var/lib/kubernetes/

@@ -1,6 +1,6 @@
 all:
   vars:
-    ansible_host: "{{inventory_hostname}}.{{domain}}"
+    ansible_fqdn: "{{inventory_hostname}}.{{domain}}"
   hosts:
   children:
     haproxy:
