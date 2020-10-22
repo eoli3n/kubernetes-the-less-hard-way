@@ -111,3 +111,41 @@
     src: containerd.service
     dest: /etc/systemd/system/
   notify: restart containerd
+
+- name: Copy Kubelet Configuration files
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    remote_src: yes
+  loop:
+    - { src: "{{ ansible_hostname }}-key.pem", dest: "/var/lib/kubelet/" }
+    - { src: "{{ ansible_hostname }}.kubeconfig", dest: "/var/lib/kubelet/kubeconfig" }
+    - { src: "ca.pem", dest: "/var/lib/kubernetes" }
+
+- name: Configure Kubelet
+  template:
+    src: kubelet-config.yaml.j2
+    dest: /var/lib/kubelet/kubelet-config.yaml
+
+- name: Copy Kubelet service
+  copy:
+    src: kubelet.service
+    dest: /etc/systemd/system/
+  notify: restart kubelet
+
+- name: Copy Kubeproxy configuration file
+  copy:
+    src: kube-proxy.kubeconfig
+    dest: /var/lib/kube-proxy/kubeconfig
+    remote_src: yes
+
+- name: Configure Kubeproxy
+  copy:
+    src: kube-proxy-config.yaml
+    dest: /var/lib/kube-proxy/kube-proxy-config.yaml
+
+- name: Copy Kubeproxy service
+  copy:
+    src: kube-proxy.service
+    dest: /etc/systemd/system/
+  notify: restart kube-proxy

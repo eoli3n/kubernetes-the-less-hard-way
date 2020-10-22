@@ -21,6 +21,7 @@
         - ../ssl/{{ ansible_hostname }}.pem
         - ../ssl/{{ ansible_hostname }}-key.pem
         - ../kubeconfigs/{{ ansible_hostname }}.kubeconfig
+        - ../kubeconfigs/kube-proxy.kubeconfig
 
 - hosts: controllers
   tasks:
