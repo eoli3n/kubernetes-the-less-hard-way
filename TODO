@@ -1,8 +1,8 @@
-- add fqdn and short names in ssl hostnames
+- remove log plugin in coredns
+- health check coredns
 
 - health check with haproxy ? https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/08-bootstrapping-kubernetes-controllers.md#provision-a-network-load-balancer
 - install addons : https://kubernetes.io/docs/concepts/overview/components/
-  - DNS
   - Web UI
   - Container Resource Monitoring
   - Cluster Level Logging

@@ -47,6 +47,7 @@ metadata:
 data:
   Corefile: |
     .:53 {
+        log
         errors
         health {
           lameduck 5s
@@ -56,6 +57,9 @@ data:
           fallthrough in-addr.arpa ip6.arpa
         }
         prometheus :9153
+        forward . /etc/resolv.conf {
+          max_concurrent 1000
+        }
         cache 30
         loop
         reload
