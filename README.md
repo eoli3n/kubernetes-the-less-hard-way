@@ -151,14 +151,18 @@ ansible-playbook 04-remote.yml
 ```
 Test with
 ```
-kubectl get componentstatuses
+kubectl get componentstatuses && kubectl get node
 ```
 Returns
 ```
 NAME                 STATUS    MESSAGE             ERROR
-scheduler            Healthy   ok                  
 controller-manager   Healthy   ok                  
+scheduler            Healthy   ok                  
+etcd-0               Healthy   {"health":"true"}   
 etcd-2               Healthy   {"health":"true"}   
 etcd-1               Healthy   {"health":"true"}   
-etcd-0               Healthy   {"health":"true"}
+NAME                 STATUS   ROLES    AGE   VERSION
+tspeda-k8s-worker1   Ready    <none>   18m   v1.18.6
+tspeda-k8s-worker2   Ready    <none>   18m   v1.18.6
+tspeda-k8s-worker3   Ready    <none>   18m   v1.18.6
 ```
