@@ -2,6 +2,9 @@
 - hosts: all
   gather_facts: yes
 
+  roles:
+    - dns
+
 - hosts: localhost
   connection: local
 

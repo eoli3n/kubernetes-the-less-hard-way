@@ -19,4 +19,8 @@
 
   roles:
     - runc-containerd
+
+- hosts: workers
+  # Separate play to flush handlers
+  roles:
     - k8s-worker

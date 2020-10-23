@@ -5,4 +5,4 @@
     regexp: '^#Domains='
     line: 'Domains={{ domain }}'
   notify: restart systemd-resolved
-
+  tags: dns
