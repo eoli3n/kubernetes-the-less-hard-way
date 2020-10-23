@@ -8,7 +8,7 @@
     - /etc/cni/net.d
     - /opt/cni/bin
 
-- name: Download Kubernetes Runner Binaries
+- name: Download Runner Binaries
   get_url:
     url: '{{ item }}'
     dest: /tmp/
@@ -36,6 +36,11 @@
     src: /tmp/containerd-1.3.6-linux-amd64.tar.gz
     dest: /tmp/containerd/
     remote_src: yes
+
+- name: Copy Containerd binary
+  shell: cp /tmp/containerd/bin/* /bin/
+  args:
+    creates: /bin/containerd
 
 - name: Extract crictl
   unarchive:
