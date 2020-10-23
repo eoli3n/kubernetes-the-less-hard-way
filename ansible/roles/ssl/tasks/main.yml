@@ -5,6 +5,14 @@
     - go get -u github.com/cloudflare/cfssl/cmd/cfssl
     - go get -u github.com/cloudflare/cfssl/cmd/cfssljson
 
+- name: Create ssl subdir
+  file:
+    path: '{{ item }}'
+    state: directory
+  loop:
+    - ../ssl
+    - ../ssl/csr
+
 - name: Template CSR files
   template:
     src: '{{ item.src }}'
@@ -17,14 +25,6 @@
     - { src: 'kube-scheduler-csr.json.j2', dest: 'kube-scheduler-csr.json' }
     - { src: 'kubernetes-csr.json.j2', dest: 'kubernetes-csr.json' }
     - { src: 'service-account-csr.json.j2', dest: 'service-account-csr.json' }
-
-- name: Create ssl subdir
-  file:
-    path: '{{ item }}'
-    state: directory
-  loop:
-    - ../ssl
-    - ../ssl/csr
 
 - name: Copy CA Configuration file
   copy:

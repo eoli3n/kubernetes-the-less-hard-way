@@ -132,7 +132,6 @@ Returns
 **Kubernetes Worker Nodes** : Install and configure Kubernetes worker nodes.
 ```
 ansible-playbook 03-workers.yml
-ansible workers -m shell -a "systemctl restart kubelet kube-proxy"
 ```
 Test with
 ```
