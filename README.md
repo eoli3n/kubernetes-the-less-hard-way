@@ -112,7 +112,7 @@ ansible haproxy -m shell -a "systemctl restart haproxy"
 ```
 Test with
 ```
-curl --cacert ca.pem https://k8s-haproxy:6443/version
+curl --cacert ../ssl/ca.pem https://k8s-haproxy:6443/version
 ```
 Returns
 ```

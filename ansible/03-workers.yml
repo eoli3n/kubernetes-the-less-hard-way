@@ -1,3 +1,22 @@
 - hosts: workers
+
+  pre_tasks:
+    - name: Install worker deps
+      apt:
+        name:
+          - socat
+          - conntrack
+          - ipset
+
+    - name: Disable swap
+      lineinfile:
+        path: /etc/fstab
+        regexp: '^/swap'
+        state: absent
+
+    - name: Stop swap
+      shell: swapoff -a
+
   roles:
-    - kubernetes-worker
+    - runc-containerd
+    - k8s-worker

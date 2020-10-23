@@ -1,0 +1,69 @@
+---
+- name: Create kubernetes directories
+  file:
+    path: '{{ item }}'
+    state: directory
+  loop:
+    - /var/lib/kubelet
+    - /var/lib/kube-proxy
+    - /var/lib/kubernetes
+    - /var/run/kubernetes
+
+- name: Install Kubernetes Worker Binaries
+  get_url:
+    url: '{{ item }}'
+    dest: /usr/bin/
+    mode: 0755
+  loop:
+    - https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubectl
+    - https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-proxy
+    - https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubelet
+
+- name: Copy Kubelet Configuration files
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    remote_src: yes
+  loop:
+    - { src: "{{ ansible_hostname }}.pem", dest: "/var/lib/kubelet/" }
+    - { src: "{{ ansible_hostname }}-key.pem", dest: "/var/lib/kubelet/" }
+    - { src: "{{ ansible_hostname }}.kubeconfig", dest: "/var/lib/kubelet/kubeconfig" }
+    - { src: "ca.pem", dest: "/var/lib/kubernetes" }
+  tags: kubelet
+  notify: restart kubelet
+
+- name: Configure Kubelet
+  template:
+    src: kubelet-config.yaml.j2
+    dest: /var/lib/kubelet/kubelet-config.yaml
+  tags: kubelet
+  notify: restart kubelet
+
+- name: Copy Kubelet service
+  copy:
+    src: kubelet.service
+    dest: /etc/systemd/system/
+  tags: kubelet
+  notify: restart kubelet
+
+- name: Copy Kubeproxy configuration file
+  copy:
+    src: kube-proxy.kubeconfig
+    dest: /var/lib/kube-proxy/kubeconfig
+    remote_src: yes
+  tags: kube-proxy
+  notify: restart kube-proxy
+
+- name: Configure Kubeproxy
+  copy:
+    src: kube-proxy-config.yaml
+    dest: /var/lib/kube-proxy/kube-proxy-config.yaml
+  tags: kube-proxy
+  notify: restart kube-proxy
+
+- name: Copy Kubeproxy service
+  copy:
+    src: kube-proxy.service
+    dest: /etc/systemd/system/
+  tags: kube-proxy
+  notify: restart kube-proxy
