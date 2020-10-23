@@ -50,6 +50,11 @@
     mode: 0755
     remote_src: yes
 
+- name: Configure crictl
+  copy:
+    src: crictl.yaml
+    dest: /etc/
+
 - name: Install CNI Plugin
   unarchive:
     src: /tmp/cni-plugins-linux-amd64-v0.8.6.tgz
