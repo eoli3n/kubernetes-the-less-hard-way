@@ -4,7 +4,7 @@ IN PROGRESS
 
 From https://github.com/kelseyhightower/kubernetes-the-hard-way
 
-The whole process with ansible playbooks hosted on local VMs instead of [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine).
+The whole process with ansible playbooks hosted on premise instead of [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine).
 
 This is not an alternative to ``Kubeadm``, and just designed for learning.
 
