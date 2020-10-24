@@ -19,6 +19,7 @@
 
   roles:
     - runc-containerd
+    - podman
 
 - hosts: workers
   # Separate play to flush handlers

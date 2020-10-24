@@ -89,7 +89,7 @@
 
 - meta: flush_handlers
 
-- pause: seconds=12
+- pause: seconds=15
   run_once: true
 
 - name: Apply RBAC authorization manifest

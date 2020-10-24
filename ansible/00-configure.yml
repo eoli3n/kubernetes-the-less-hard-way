@@ -14,6 +14,7 @@
     - encryption
 
 - hosts: workers
+  strategy: free
   tasks:
     - name: Distribute to worker nodes
       copy:
@@ -28,6 +29,7 @@
       tags: distribute
 
 - hosts: controllers
+  strategy: free
   tasks:
     - name: Distribute to control plane
       copy:
