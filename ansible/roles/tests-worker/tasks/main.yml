@@ -4,8 +4,8 @@
     path: /root/test
     state: directory
   tags: crictl
----
-- name: Crictl : Copy config files
+
+- name: Copy config files
   # https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/
   copy:
     src: '{{ item }}'
@@ -15,7 +15,7 @@
     - container-config.json
   tags: crictl
 
-- name: Crictl : Run container
+- name: Create container
   shell: |
     crictl pull busybox && \
     crictl start $(crictl create $(crictl runp pod-config.json) container-config.json pod-config.json)

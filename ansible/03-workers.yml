@@ -18,7 +18,8 @@
       shell: swapoff -a
 
   roles:
-    - runc-containerd
+    - role: runc-containerd
+      tags: runner
     - podman
 
 - hosts: workers

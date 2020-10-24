@@ -1,4 +1,7 @@
 DEBUG of no networking
+
+- verify other route, try to ping between pods
+
 ```
 kubectl describe pods -A
 kubectl run busybox --image=busybox:1.28 --command -- sleep 3600
@@ -7,6 +10,7 @@ kubectl exec -ti busybox -- ip route
 kubectl exec -ti busybox -- ping $gateway
 ```
 AFTER
+- kubectl timeout... exiting shell or ping
 - podman role
 - remove log plugin in coredns
 - health check coredns ?
