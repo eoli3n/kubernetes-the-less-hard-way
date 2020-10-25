@@ -3,7 +3,8 @@
   gather_facts: yes
 
   roles:
-    - dns
+    - role: dns
+      tags: dns
 
 - hosts: localhost
   connection: local

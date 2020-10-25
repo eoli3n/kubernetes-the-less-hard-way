@@ -1,28 +1,17 @@
-DEBUG of no networking
-
-- https://github.com/kubernetes-sigs/kubespray/blob/master/docs/setting-up-your-first-cluster.md
-
-- verify other route, try to ping between pods
-
-```
-kubectl describe pods -A
-kubectl run busybox --image=busybox:1.28 --command -- sleep 3600
-kubectl exec -ti busybox -- ping 216.58.204.131
-kubectl exec -ti busybox -- ip route
-kubectl exec -ti busybox -- ping $gateway
-```
-AFTER
+TODO
 - kube-proxy : test mode ipvs
-- kubectl timeout... exiting shell or ping
 - podman role
-- remove log plugin in coredns
-- health check coredns ?
 - use kube-router instead of manual routes
-
-- facing this when reboot 3 controllers -> https://github.com/etcd-io/etcd/issues/10655
-
-- health check with haproxy ? https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/08-bootstrapping-kubernetes-controllers.md#provision-a-network-load-balancer
 - install addons : https://kubernetes.io/docs/concepts/overview/components/
   - Web UI
   - Container Resource Monitoring
   - Cluster Level Logging
+
+ISSUES
+- facing this when reboot 3 controllers -> https://github.com/etcd-io/etcd/issues/10655
+- kubectl timeout... exiting shell or ping
+- health check coredns ?
+
+NEXT
+- https://github.com/kubernetes-sigs/kubespray/blob/master/docs/setting-up-your-first-cluster.md
+- health check with haproxy ? https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/08-bootstrapping-kubernetes-controllers.md#provision-a-network-load-balancer
