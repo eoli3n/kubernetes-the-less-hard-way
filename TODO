@@ -17,6 +17,8 @@ ISSUES
 - facing this when reboot 3 controllers -> https://github.com/etcd-io/etcd/issues/10655
 - kubectl timeout... exiting shell or ping
 - health check coredns ?
+- kubectl proxy print errors
+  - E1025 18:11:15.522577 3195026 proxy_server.go:144] Error while proxying request: context canceled
 
 NEXT
 - https://github.com/kubernetes-sigs/kubespray/blob/master/docs/setting-up-your-first-cluster.md

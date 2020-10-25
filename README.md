@@ -64,7 +64,7 @@ ansible-playbook 01-controllers.yml
 ```
 Test etcd with
 ```
-ansible-playbook tests.yml -t etcd
+ansible-playbook tests.yml -v -t etcd
 ```
 Returns on each
 ```
@@ -75,7 +75,7 @@ f1c47e23a339d1cf, started, k8s-controller2, https://X.X.X.X:2380, https://X.X.X.
 
 Test control plane with
 ```
-ansible-playbook tests.yml -t etcd
+ansible-playbook tests.yml -v -t etcd
 ```
 Returns on each
 ```
@@ -88,7 +88,7 @@ etcd-2               Healthy   {"health":"true"}
 
 Test health with
 ```
-ansible-playbook tests.yml -t healthz
+ansible-playbook tests.yml -v -t healthz
 ```
 HTTP/1.1 200 OK
 Server: nginx/1.18.0 (Ubuntu)
@@ -111,7 +111,7 @@ ansible haproxy -m shell -a "systemctl restart haproxy"
 ```
 Test with
 ```
-ansible-playbook tests.yml -t haproxy
+ansible-playbook tests.yml -v -t haproxy
 ```
 Returns
 ```
@@ -134,7 +134,7 @@ ansible-playbook 03-workers.yml
 ```
 Test with
 ```
-ansible-playbook tests.yml -t nodes
+ansible-playbook tests.yml -v -t nodes
 ```
 Returns on each
 ```
@@ -151,7 +151,7 @@ ansible-playbook 04-remote.yml
 ```
 Test with
 ```
-ansible-playbook tests.yml -t remote
+ansible-playbook tests.yml -v -t remote
 ```
 Returns
 ```
@@ -170,7 +170,7 @@ ansible-playbook 05-pod-routes.yml
 
 Test with
 ```
-ansible-playbook tests.yml -t route
+ansible-playbook tests.yml -v -t route
 ```
 Returns on each
 ```
@@ -198,6 +198,15 @@ coredns-XXXXXXXXXX-XXXXX   1/1     Running   0          105s
 coredns-XXXXXXXXXX-XXXXX   1/1     Running   0          105s
 ```
 Then see [Kubernetes The Hard Way #Dns Addon verification](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/12-dns-addon.md#verification)
+
+**Metrics** : Deploy metrics server
+```
+ansible-playbook 06-plugins.yml -t metrics
+```
+Test with
+```
+kubectl top nodes
+```
 
 **Dashboard** : Deploy Webui
 ```
