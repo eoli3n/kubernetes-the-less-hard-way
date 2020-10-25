@@ -1,5 +1,7 @@
 DEBUG of no networking
 
+- https://github.com/kubernetes-sigs/kubespray/blob/master/docs/setting-up-your-first-cluster.md
+
 - verify other route, try to ping between pods
 
 ```
@@ -10,6 +12,7 @@ kubectl exec -ti busybox -- ip route
 kubectl exec -ti busybox -- ping $gateway
 ```
 AFTER
+- kube-proxy : test mode ipvs
 - kubectl timeout... exiting shell or ping
 - podman role
 - remove log plugin in coredns
