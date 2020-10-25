@@ -2,11 +2,8 @@ IN PROGRESS
 
 # Kubernetes The (Less) Hard Way
 
-From https://github.com/kelseyhightower/kubernetes-the-hard-way
-
-The whole process with ansible playbooks hosted on premise instead of [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine).
-
-This is not an alternative to ``Kubeadm``, and just designed for learning.
+Ansible playbooks to learn how to host Kubernetes on premise.
+Kind of between [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) and [KubeSpray](https://github.com/kubernetes-sigs/kubespray).
 
 ## VMs provisionning
 
