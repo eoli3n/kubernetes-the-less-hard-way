@@ -1,9 +1,0 @@
-- hosts: localhost
-  connection: local
-
-  tasks:
-
-    - name: install coredns
-      # Generate with https://github.com/coredns/deployment/tree/master/kubernetes#deploysh-and-corednsyamlsed
-      # Remove forwarding part in Corefile part to avoid loops
-      shell: kubectl apply -f {{ playbook_dir }}/roles/dns/files/coredns.yml

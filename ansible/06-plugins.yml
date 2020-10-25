@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+
+  tasks:
+
+    - name: Install CoreDNS
+      # Generate with https://github.com/coredns/deployment/tree/master/kubernetes#deploysh-and-corednsyamlsed
+      shell: kubectl apply -f {{ playbook_dir }}/../manifests/coredns.yml
+      tags: coredns
+
+    - name: Install Dashboard
+      shell: kubectl apply -f {{ playbook_dir }}/../manifests/dashboard.yml
+      tags: dashboard

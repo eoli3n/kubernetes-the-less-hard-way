@@ -3,9 +3,15 @@ TODO
 - podman role
 - use kube-router instead of manual routes
 - install addons : https://kubernetes.io/docs/concepts/overview/components/
-  - Web UI
+  - Web UI : https://kubernetes.io/fr/docs/tasks/access-application-cluster/web-ui-dashboard/ + https://github.com/kubernetes/dashboard
   - Container Resource Monitoring
   - Cluster Level Logging
+  - autoscaler : https://github.com/kubernetes/autoscaler
+  - metrics : https://github.com/kubernetes/metrics -> k top nodes
+  - ingress managers
+    - traefik
+    - ingress-nginx : https://github.com/kubernetes/ingress-nginx
+    - envoy : https://www.envoyproxy.io/
 
 ISSUES
 - facing this when reboot 3 controllers -> https://github.com/etcd-io/etcd/issues/10655
