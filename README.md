@@ -64,11 +64,7 @@ ansible-playbook 01-controllers.yml
 ```
 Test etcd with
 ```
-ansible controllers -m shell -a "ETCDCTL_API=3 etcdctl member list \
-    --endpoints=https://127.0.0.1:2379 \
-    --cacert=/etc/etcd/ca.pem \
-    --cert=/etc/etcd/kubernetes.pem \
-    --key=/etc/etcd/kubernetes-key.pem"
+ansible-playbook 07-tests.yml -t etcd
 ```
 Returns on each
 ```
@@ -79,8 +75,7 @@ f1c47e23a339d1cf, started, k8s-controller2, https://X.X.X.X:2380, https://X.X.X.
 
 Test control plane with
 ```
-ansible controllers -m shell -a 'kubectl get componentstatuses --kubeconfig admin.kubeconfig \
-  && curl -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz'
+ansible-playbook 07-tests.yml -t etcd
 ```
 Returns on each
 ```
@@ -90,6 +85,11 @@ scheduler            Healthy   ok
 etcd-1               Healthy   {"health":"true"}   
 etcd-0               Healthy   {"health":"true"}   
 etcd-2               Healthy   {"health":"true"}   
+
+Test health with
+```
+ansible-playbook 07-tests.yml -t healthz
+```
 HTTP/1.1 200 OK
 Server: nginx/1.18.0 (Ubuntu)
 Date: Fri, 16 Oct 2020 16:57:04 GMT
@@ -97,7 +97,9 @@ Content-Type: text/plain; charset=utf-8
 Content-Length: 2
 Connection: keep-alive
 Cache-Control: no-cache, private
-X-Content-Type-Options: nosniff
+X-Content-Type-Options: nosniffA
+
+ok
 ```
 
 **HAProxy** : Install and configure HA proxy in front of controllers.
@@ -109,7 +111,7 @@ ansible haproxy -m shell -a "systemctl restart haproxy"
 ```
 Test with
 ```
-curl --cacert ../ssl/ca.pem https://k8s-haproxy:6443/version
+ansible-playbook 07-tests.yml -t haproxy
 ```
 Returns
 ```
@@ -132,7 +134,7 @@ ansible-playbook 03-workers.yml
 ```
 Test with
 ```
-ansible controllers -m shell -a "kubectl get nodes --kubeconfig admin.kubeconfig"
+ansible-playbook 07-tests.yml -t nodes
 ```
 Returns on each
 ```
@@ -149,7 +151,7 @@ ansible-playbook 04-remote.yml
 ```
 Test with
 ```
-kubectl get componentstatuses && kubectl get node
+ansible-playbook 07-tests.yml -t remote
 ```
 Returns
 ```
@@ -159,10 +161,6 @@ scheduler            Healthy   ok
 etcd-0               Healthy   {"health":"true"}   
 etcd-2               Healthy   {"health":"true"}   
 etcd-1               Healthy   {"health":"true"}   
-NAME                 STATUS   ROLES    AGE   VERSION
-tspeda-k8s-worker1   Ready    <none>   18m   v1.18.6
-tspeda-k8s-worker2   Ready    <none>   18m   v1.18.6
-tspeda-k8s-worker3   Ready    <none>   18m   v1.18.6
 ```
 
 **Pod routes** : Add routes between pod subnets
@@ -172,13 +170,16 @@ ansible-playbook 05-pod-routes.yml
 
 Test with
 ```
-ansible workers -m shell -a "ip route"
+ansible-playbook 07-tests.yml -t route
 ```
 Returns on each
 ```
-10.200.204.0/24 via X.X.X.205 dev ens3 
-10.200.205.0/24 via X.X.X.205 dev ens3 
-10.200.206.0/24 via X.X.X.205 dev ens3
+# Where X are pod subnets, and Y default interface of worker
+default via $gateway dev ens3 proto static 
+X.X.1.0/24 via Y.Y.Y.1 dev ens3 
+X.X.2.0/24 dev cnio0 proto kernel scope link src X.X.2.1 linkdown 
+X.X.3.0/24 via Y.Y.Y.3 dev ens3
+Y.Y.Y.Y/24 dev ens3 proto kernel scope link src Y.Y.Y.2
 ```
 
 **CoreDNS** : Deploy DNS cluster Add-On

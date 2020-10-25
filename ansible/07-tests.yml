@@ -1,3 +1,21 @@
 - hosts: workers
   roles:
-    - tests-worker
+    - role: tests-worker
+      tags: worker
+
+- hosts: controllers
+  roles:
+    - role: tests-controller
+      tags: controller
+
+- hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Test haproxy to access api
+      shell: curl -s --cacert {{ playbook_dir }}/../ssl/ca.pem https://{{ hostvars[groups['haproxy'][0]].ansible_hostname }}:6443/version
+      tags: haproxy
+
+    - name: Test remote
+      shell: kubectl get componentstatuses
+      tags: remote

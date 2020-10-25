@@ -1,0 +1,23 @@
+---
+- name: Test etcd
+  shell: |
+    ETCDCTL_API=3 etcdctl member list \
+      --endpoints=https://127.0.0.1:2379 \
+      --cacert=/etc/etcd/ca.pem \
+      --cert=/etc/etcd/kubernetes.pem \
+      --key=/etc/etcd/kubernetes-key.pem
+  tags: etcd
+
+- name: Test Components
+  shell: |
+    kubectl get componentstatuses --kubeconfig admin.kubeconfig
+  tags: components
+
+- name: Test Health
+  shell: |
+    curl -s -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz
+  tags: healthz
+
+- name: Test get nodes
+  shell: kubectl get nodes --kubeconfig admin.kubeconfig
+  tags: nodes
