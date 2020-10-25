@@ -9,5 +9,8 @@
       tags: coredns
 
     - name: Install Dashboard
-      shell: kubectl apply -f {{ playbook_dir }}/../manifests/dashboard.yml
+      shell: |
+        kubectl apply -f {{ playbook_dir }}/../manifests/dashboard.yml && \
+        kubectl apply -f {{ playbook_dir }}/../manifests/dashboard-admin-user.yml && \
+        kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
       tags: dashboard
