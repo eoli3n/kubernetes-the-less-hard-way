@@ -4,10 +4,8 @@ TODO
 - network:
   - kube-router instead of manual routes
   - flannel
-- podman role
 - runtimes : https://kubernetes.io/docs/setup/production-environment/container-runtimes/#container-runtimes
   - docker
-  - cri-o
 - helm
 - install addons : https://kubernetes.io/docs/concepts/overview/components/
   - autoscaler : https://github.com/kubernetes/autoscaler
@@ -27,6 +25,7 @@ ISSUES
 - kubectl proxy print errors
   - E1025 18:11:15.522577 3195026 proxy_server.go:144] Error while proxying request: context canceled
 - metrics : not working
+- long time after deleting a pod
 
 NEXT
 - https://kubernetes.io/fr/docs/setup/production-environment/tools/kubeadm/high-availability/
