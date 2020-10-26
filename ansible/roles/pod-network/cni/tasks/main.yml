@@ -1,0 +1,32 @@
+- name: Configure kubelet to use cni
+  lineinfile:
+    path: /etc/systemd/system/kubelet.service
+    regexp: 'network-plugin=.*'
+    line: 'network-plugin=cni \'
+    state: present
+
+- name: Create directories
+  file:
+    path: '{{ item }}'
+    state: directory
+  loop:
+    - /etc/cni/net.d
+    - /opt/cni/bin
+
+- name: Install CNI Plugin
+  unarchive:
+    src: https://github.com/containernetworking/plugins/releases/download/v0.8.6/cni-plugins-linux-amd64-v0.8.6.tgz
+    dest: /opt/cni/bin/
+    remote_src: yes
+
+- name: Configure CNI Plugin Pod CIDR
+  template:
+    src: 10-bridge.conf.j2
+    dest: /etc/cni/net.d/10-bridge.conf
+  notify: restart containerd
+
+- name: Configure CNI Plugin loopback
+  copy:
+    src: 99-loopback.conf
+    dest: /etc/cni/net.d/
+  notify: restart containerd

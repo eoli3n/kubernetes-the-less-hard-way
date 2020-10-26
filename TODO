@@ -1,13 +1,15 @@
 TODO
 - kube-proxy : test mode ipvs
+- network:
+  - kube-router instead of manual routes
+  - flannel
 - podman role
-- use kube-router instead of manual routes
+- runtimes : https://kubernetes.io/docs/setup/production-environment/container-runtimes/#container-runtimes
+  - docker
+  - cri-o
+- helm
 - install addons : https://kubernetes.io/docs/concepts/overview/components/
-  - Web UI : https://kubernetes.io/fr/docs/tasks/access-application-cluster/web-ui-dashboard/ + https://github.com/kubernetes/dashboard
-  - Container Resource Monitoring
-  - Cluster Level Logging
   - autoscaler : https://github.com/kubernetes/autoscaler
-  - metrics : https://github.com/kubernetes/metrics -> k top nodes
   - ingress managers
     - traefik
     - ingress-nginx : https://github.com/kubernetes/ingress-nginx
@@ -17,9 +19,11 @@ ISSUES
 - facing this when reboot 3 controllers -> https://github.com/etcd-io/etcd/issues/10655
 - kubectl timeout... exiting shell or ping
 - health check coredns ?
+- health check with haproxy ? https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/08-bootstrapping-kubernetes-controllers.md#provision-a-network-load-balancer
 - kubectl proxy print errors
   - E1025 18:11:15.522577 3195026 proxy_server.go:144] Error while proxying request: context canceled
+- metrics : not working
 
 NEXT
+- https://kubernetes.io/fr/docs/setup/production-environment/tools/kubeadm/high-availability/
 - https://github.com/kubernetes-sigs/kubespray/blob/master/docs/setting-up-your-first-cluster.md
-- health check with haproxy ? https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/08-bootstrapping-kubernetes-controllers.md#provision-a-network-load-balancer

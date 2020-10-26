@@ -6,14 +6,3 @@
     line: 'Domains={{ domain }}'
   notify: restart systemd-resolved
   tags: dns
-
-- name: Fix coredns delay resolution
-  # https://github.com/kubernetes/kubernetes/issues/21613#issuecomment-343190401
-  shell: modprobe br_netfilter
-
-- name: Fix coredns delay resolution
-  lineinfile:
-    path: /etc/modules-load.d/modules.conf
-    regexp: '^br_netfilter'
-    line: 'br_netfilter'
-    state: present

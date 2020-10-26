@@ -1,0 +1,49 @@
+- hosts: workers
+
+  pre_tasks:
+    - name: Install worker deps
+      apt:
+        name:
+          - socat
+          - conntrack
+          - ipset
+
+    - name: Load module br_netfilter
+      # https://github.com/kubernetes/kubernetes/issues/21613#issuecomment-343190401
+      lineinfile:
+        path: /etc/modules-load.d/modules.conf
+        regexp: '^br_netfilter'
+        line: 'br_netfilter'
+        state: present
+
+    - name: Load modules
+      shell: modprobe br_netfilter overlay
+
+    - name: Copy sysctl file
+      copy:
+        src: 99-kubernetes-cri.conf
+        dest: /etc/sysctl.d/
+ 
+    - name: Apply sysctl file
+      shell: sysctl --system
+
+  roles:
+    - role: tools-worker
+      tags: tools
+    - role: runtimes/containerd
+      tags: runtime
+    #- role: runtimes/cri-o
+    #  tags: runtime
+    #- role: runtimes/docker
+    #  tags: runtime
+    - role: pod-network/cni
+      tags: pod-network
+    #- roles: pod-network/kube-router
+    #  tags: pod-network
+    #- roles: pod-network/flannel
+    #  tags: pod-network
+
+- hosts: workers
+  # Separate play to flush handlers
+  roles:
+    - k8s-worker

@@ -55,12 +55,12 @@ Please read playbooks before running.
 
 **SSL** : Generate Certificate Authority, Certificates, and kubeconfigs.
 ```
-ansible-playbook 00-configure.yml
+ansible-playbook 01-local.yml
 ```
 
 **Kubernetes Control Plane and etcd** : Install and configure Kubernetes controllers.
 ```
-ansible-playbook 01-controllers.yml
+ansible-playbook 02-controllers.yml
 ```
 Test etcd with
 ```
@@ -75,7 +75,7 @@ f1c47e23a339d1cf, started, k8s-controller2, https://X.X.X.X:2380, https://X.X.X.
 
 Test control plane with
 ```
-ansible-playbook tests.yml -v -t etcd
+ansible-playbook tests.yml -v -t components
 ```
 Returns on each
 ```
@@ -106,7 +106,7 @@ ok
 
 ```
 ansible-galaxy install manala.haproxy -p roles
-ansible-playbook 02-haproxy.yml
+ansible-playbook 03-haproxy.yml
 ansible haproxy -m shell -a "systemctl restart haproxy"
 ```
 Test with
@@ -129,8 +129,10 @@ Returns
 ```
 
 **Kubernetes Worker Nodes** : Install and configure Kubernetes worker nodes.
+By default, it uses ``containerd`` runtime, and ``cni`` network addon.
+You can change these by uncommenting specific lines in the playbook.
 ```
-ansible-playbook 03-workers.yml
+ansible-playbook 04-workers.yml
 ```
 Test with
 ```
@@ -146,26 +148,14 @@ k8s-worker3   Ready    <none>   2m17s   v1.18.6
 
 **Remote Access** : Configure kubectl on your host
 
-```
-ansible-playbook 04-remote.yml
-```
 Test with
 ```
 ansible-playbook tests.yml -v -t remote
 ```
-Returns
-```
-NAME                 STATUS    MESSAGE             ERROR
-controller-manager   Healthy   ok                  
-scheduler            Healthy   ok                  
-etcd-0               Healthy   {"health":"true"}   
-etcd-2               Healthy   {"health":"true"}   
-etcd-1               Healthy   {"health":"true"}   
-```
 
-**Pod routes** : Add routes between pod subnets
+**Network** : Add routes between pod subnets
 ```
-ansible-playbook 05-pod-routes.yml
+ansible-playbook 05-network.yml
 ```
 
 Test with
@@ -184,7 +174,7 @@ Y.Y.Y.Y/24 dev ens3 proto kernel scope link src Y.Y.Y.2
 
 **CoreDNS** : Deploy DNS cluster Add-On
 ```
-ansible-playbook 06-plugins.yml -t coredns
+ansible-playbook 06-addons.yml -t coredns
 ```
 
 Test with
@@ -201,7 +191,7 @@ Then see [Kubernetes The Hard Way #Dns Addon verification](https://github.com/ke
 
 **Metrics** : Deploy metrics server
 ```
-ansible-playbook 06-plugins.yml -t metrics
+ansible-playbook 06-addons.yml -t metrics
 ```
 Test with
 ```
@@ -210,7 +200,7 @@ kubectl top nodes
 
 **Dashboard** : Deploy Webui
 ```
-ansible-playbook 06-plugins.yml -t dashboard
+ansible-playbook 06-addons.yml -t dashboard
 kubectl proxy
 ```
 Access at [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)and connect with ``token``.

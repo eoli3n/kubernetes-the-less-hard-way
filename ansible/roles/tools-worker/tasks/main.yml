@@ -1,0 +1,33 @@
+---
+- name: Add podman repo key
+  apt_key:
+    url: 'https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/Release.key'
+    state: present
+
+- name: Add podman repo
+  apt_repository:
+    repo: 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /'
+    state: present
+    update_cache: yes
+
+- name: Install podman
+  apt:
+    name: podman
+
+- name: Extract crictl
+  unarchive:
+    src: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.18.0/crictl-v1.18.0-linux-amd64.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy crictl Binary
+  copy:
+    src: /tmp/crictl
+    dest: /usr/bin/
+    mode: 0755
+    remote_src: yes
+
+- name: Configure crictl
+  copy:
+    src: crictl.yaml
+    dest: /etc/

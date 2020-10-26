@@ -6,45 +6,13 @@
     - role: dns
       tags: dns
 
-- hosts: localhost
-  connection: local
-
-  roles:
-    - ssl
-    - kubeconfig
-    - encryption
-
 - hosts: workers
-  strategy: free
   tasks:
-    - name: Distribute to worker nodes
-      copy:
-        src: '{{ item }}'
-        dest: /root
-      loop:
-        - ../ssl/ca.pem
-        - ../ssl/{{ ansible_hostname }}.pem
-        - ../ssl/{{ ansible_hostname }}-key.pem
-        - ../kubeconfigs/{{ ansible_hostname }}.kubeconfig
-        - ../kubeconfigs/kube-proxy.kubeconfig
-      tags: distribute
+    - name: Disable swap
+      lineinfile:
+        path: /etc/fstab
+        regexp: '^/swap'
+        state: absent
 
-- hosts: controllers
-  strategy: free
-  tasks:
-    - name: Distribute to control plane
-      copy:
-        src: '{{ item }}'
-        dest: /root
-      loop:
-        - ../ssl/ca.pem
-        - ../ssl/ca-key.pem
-        - ../ssl/kubernetes.pem
-        - ../ssl/kubernetes-key.pem
-        - ../ssl/service-account.pem
-        - ../ssl/service-account-key.pem
-        - ../kubeconfigs/admin.kubeconfig
-        - ../kubeconfigs/kube-controller-manager.kubeconfig
-        - ../kubeconfigs/kube-scheduler.kubeconfig
-        - ../ssl/encryption-config.yaml
-      tags: distribute
+    - name: Stop swap
+      shell: swapoff -a
