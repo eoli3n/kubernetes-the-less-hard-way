@@ -6,9 +6,9 @@
     daemon_reload: yes
     enabled: yes
 
-- name: restart containerd
+- name: restart crio
   systemd:
-    name: containerd
+    name: crio
     state: restarted
     daemon_reload: yes
     enabled: yes

@@ -1,10 +1,3 @@
-- name: Configure kubelet to use cni
-  lineinfile:
-    path: /etc/systemd/system/kubelet.service
-    regexp: 'network-plugin=.*'
-    line: 'network-plugin=cni \'
-    state: present
-
 - name: Create directories
   file:
     path: '{{ item }}'
@@ -30,3 +23,11 @@
     src: 99-loopback.conf
     dest: /etc/cni/net.d/
   notify: restart containerd
+
+- name: Configure kubelet to use cni
+  lineinfile:
+    path: /etc/systemd/system/kubelet.service
+    regexp: 'network-plugin=.*'
+    line: 'network-plugin=cni \'
+    state: present
+  notify: restart kubelet

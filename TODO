@@ -15,6 +15,9 @@ TODO
     - ingress-nginx : https://github.com/kubernetes/ingress-nginx
     - envoy : https://www.envoyproxy.io/
 
+FIX
+- edit crio socket
+
 ISSUES
 - facing this when reboot 3 controllers -> https://github.com/etcd-io/etcd/issues/10655
 - kubectl timeout... exiting shell or ping

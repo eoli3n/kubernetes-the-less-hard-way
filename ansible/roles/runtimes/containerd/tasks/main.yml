@@ -37,3 +37,27 @@
     src: containerd.service
     dest: /etc/systemd/system/
   notify: restart containerd
+
+- name: Configure kubelet to use containerd
+  lineinfile:
+    path: /etc/systemd/system/kubelet.service
+    regexp: 'After=.*'
+    line: 'After=containerd.service \'
+    state: present
+  notify: restart kubelet
+
+- name: Configure kubelet to use containerd
+  lineinfile:
+    path: /etc/systemd/system/kubelet.service
+    regexp: 'Requires=.*'
+    line: 'Requires=containerd.service \'
+    state: present
+  notify: restart kubelet
+
+- name: Configure kubelet to use containerd
+  lineinfile:
+    path: /etc/systemd/system/kubelet.service
+    regexp: '--container-runtime-endpoint=.*'
+    line: '--container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \'
+    state: present
+  notify: restart kubelet
