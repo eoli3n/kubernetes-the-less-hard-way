@@ -52,6 +52,10 @@ ansible all -m ping
 ```
 
 Please read playbooks before running.
+Prepare environment with
+```
+ansible-playbook 00-configure.yml
+```
 
 **SSL** : Generate Certificate Authority, Certificates, and kubeconfigs.
 ```
