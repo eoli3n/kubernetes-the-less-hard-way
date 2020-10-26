@@ -16,7 +16,7 @@
 
 - name: Extract crictl
   unarchive:
-    src: https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.18.0/crictl-v1.18.0-linux-amd64.tar.gz
+    src: "https://github.com/kubernetes-sigs/cri-tools/releases/download/v{{ kube_minor_version }}.0/crictl-v{{ kube_minor_version }}.0-linux-amd64.tar.gz"
     dest: /tmp/
     remote_src: yes
 

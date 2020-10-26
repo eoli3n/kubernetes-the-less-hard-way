@@ -1,0 +1,23 @@
+---
+- name: Add cri-o repo keys
+  apt_key:
+    url: '{{ item }}'
+    state: present
+  loop:
+    - 'https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ kube_major_version }}/xUbuntu_20.04/Release.key'
+    - 'https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/Release.key'
+
+- name: Add cri-o repos
+  apt_repository:
+    state: present
+    repo: '{{ item }}'
+    update_cache: yes
+  loop:
+    - 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ kube_major_version }}/xUbuntu_20.04/ /'
+    - 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /'
+
+- name: Install cri-o
+  apt:
+    name:
+      - cri-o
+      - cri-o-runc
