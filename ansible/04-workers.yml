@@ -31,6 +31,7 @@
       shell: sysctl --system
 
   roles:
+    - role: k8s-worker
     - role: tools-worker
       tags: tools
     - role: runtimes/containerd
@@ -45,8 +46,3 @@
     #  tags: pod-network
     #- roles: pod-network/flannel
     #  tags: pod-network
-
-- hosts: workers
-  # Separate play to flush handlers
-  roles:
-    - k8s-worker

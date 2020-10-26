@@ -15,7 +15,7 @@
       --certificate-authority=ca.pem \
       --embed-certs=true \
       --server=https://{{ external_ip }}:6443 \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-credentials system:node:{{ hostname }} \
       --client-certificate={{ client_certificate }} \
       --client-key={{ client_key }} \
@@ -41,16 +41,16 @@
       --certificate-authority=ca.pem \
       --embed-certs=true \
       --server=https://{{ external_ip }}:6443 \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-credentials system:{{ name }} \
       --client-certificate={{ client_certificate }} \
       --client-key={{ client_key }} \
       --embed-certs=true \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-context default \
       --cluster={{ cluster_name }} \
       --user=system:{{ name }} \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
   args:
     chdir: ../ssl
@@ -66,16 +66,16 @@
       --certificate-authority=ca.pem \
       --embed-certs=true \
       --server=https://127.0.0.1:6443 \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-credentials system:{{ name }} \
       --client-certificate={{ client_certificate }} \
       --client-key={{ client_key }} \
       --embed-certs=true \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-context default \
       --cluster={{ cluster_name }} \
       --user=system:{{ name }} \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
   args:
     chdir: ../ssl
@@ -91,16 +91,16 @@
       --certificate-authority=ca.pem \
       --embed-certs=true \
       --server=https://127.0.0.1:6443 \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-credentials system:{{ name }} \
       --client-certificate={{ client_certificate }} \
       --client-key={{ client_key }} \
       --embed-certs=true \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-context default \
       --cluster={{ cluster_name }} \
       --user=system:{{ name }} \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
   args:
     chdir: ../ssl
@@ -116,16 +116,16 @@
       --certificate-authority=ca.pem \
       --embed-certs=true \
       --server=https://127.0.0.1:6443 \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-credentials {{ name }} \
       --client-certificate={{ client_certificate }} \
       --client-key={{ client_key }} \
       --embed-certs=true \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config set-context default \
       --cluster={{ cluster_name }} \
       --user={{ name }} \
-      --kubeconfig={{ kubeconfig_file }} && \
+      --kubeconfig={{ kubeconfig_file }}
     kubectl config use-context default --kubeconfig={{ kubeconfig_file }}
   args:
     chdir: ../ssl

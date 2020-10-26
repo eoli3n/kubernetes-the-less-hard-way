@@ -21,3 +21,7 @@
 - name: Test get nodes
   shell: kubectl get nodes --kubeconfig admin.kubeconfig
   tags: nodes
+
+- name: Test routes
+  shell: ip route
+  tags: route

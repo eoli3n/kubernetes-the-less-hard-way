@@ -27,22 +27,19 @@
   lineinfile:
     path: /etc/systemd/system/kubelet.service
     regexp: 'After=.*'
-    line: 'After=crio.service \'
-    state: present
+    line: 'After=crio.service'
   notify: restart kubelet
                                                                                         
 - name: Configure kubelet to use containerd
   lineinfile:
     path: /etc/systemd/system/kubelet.service
     regexp: 'Requires=.*' 
-    line: 'Requires=crio.service \' 
-    state: present 
+    line: 'Requires=crio.service' 
   notify: restart kubelet 
 
 - name: Configure kubelet to use containerd
   lineinfile:
     path: /etc/systemd/system/kubelet.service
     regexp: '--container-runtime-endpoint=.*'
-    line: '--container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \'
-    state: present
+    line: '  --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \'
   notify: restart kubelet

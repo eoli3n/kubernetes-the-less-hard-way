@@ -28,6 +28,5 @@
   lineinfile:
     path: /etc/systemd/system/kubelet.service
     regexp: 'network-plugin=.*'
-    line: 'network-plugin=cni \'
-    state: present
+    line: '  --network-plugin=cni \'
   notify: restart kubelet

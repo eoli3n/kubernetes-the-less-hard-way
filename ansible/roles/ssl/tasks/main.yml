@@ -39,7 +39,7 @@
 
 - name: Generate CA and Admin Certificates
   shell: |
-    cfssl gencert -initca csr/ca-csr.json | cfssljson -bare ca && \
+    cfssl gencert -initca csr/ca-csr.json | cfssljson -bare ca
     cfssl gencert \
       -ca=ca.pem \
       -ca-key=ca-key.pem \

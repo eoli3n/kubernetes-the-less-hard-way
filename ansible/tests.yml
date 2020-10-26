@@ -19,3 +19,12 @@
     - name: Test remote
       shell: kubectl get componentstatuses
       tags: remote
+
+    - name: Test coredns
+      shell: |
+        kubectl run busybox --image=busybox:1.28 --command -- sleep 3600
+        sleep 1
+        kubectl exec busybox -- nslookup kubernetes
+        kubectl delete pods busybox &
+      tags: coredns
+

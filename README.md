@@ -184,12 +184,21 @@ ansible-playbook 06-addons.yml -t coredns
 Test with
 ```
 kubectl get pods -l k8s-app=kube-dns -n kube-system
+ansible-playbook tests.yml -v -t coredns
 ```
 Returns
 ```
 NAME                       READY   STATUS    RESTARTS   AGE
 coredns-XXXXXXXXXX-XXXXX   1/1     Running   0          105s
 coredns-XXXXXXXXXX-XXXXX   1/1     Running   0          105s
+###
+pod/busybox created
+Server:    10.32.0.10
+Address 1: 10.32.0.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      kubernetes
+Address 1: 10.32.0.1 kubernetes.default.svc.cluster.local
+pod "busybox" deleted
 ```
 Then see [Kubernetes The Hard Way #Dns Addon verification](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/12-dns-addon.md#verification)
 

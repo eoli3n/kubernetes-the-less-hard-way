@@ -17,7 +17,7 @@
 
 - name: Create container
   shell: |
-    crictl pull busybox && \
+    crictl pull busybox
     crictl start $(crictl create $(crictl runp pod-config.json) container-config.json pod-config.json)
   args:
     chdir: /root/test

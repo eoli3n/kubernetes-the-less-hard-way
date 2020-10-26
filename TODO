@@ -1,5 +1,6 @@
 TODO
 - kube-proxy : test mode ipvs
+- upgrade to kubernetes 19.1
 - network:
   - kube-router instead of manual routes
   - flannel

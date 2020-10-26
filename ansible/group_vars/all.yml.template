@@ -3,7 +3,10 @@ external_ip: "{{ hostvars[groups['haproxy'][0]].ansible_default_ipv4.address }}"
 external_fqdn: "{{ hostvars[groups['haproxy'][0]].ansible_fqdn }}"
 external_hostname: "{{ hostvars[groups['haproxy'][0]].ansible_hostname }}"
 pod_cidr: "10.200{{ ansible_default_ipv4.address | splitext | last }}.0/24"
+kube_version: "{{ kube_major_version }}.{{ kube_minor_version }}"
 
 # Configure here
+kube_major_version: "1.18"
+kube_minor_version: "6"
 domain: "domain.fr"
 cluster_name: "KTLHW"

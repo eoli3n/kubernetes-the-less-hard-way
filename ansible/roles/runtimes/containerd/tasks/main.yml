@@ -42,22 +42,23 @@
   lineinfile:
     path: /etc/systemd/system/kubelet.service
     regexp: 'After=.*'
-    line: 'After=containerd.service \'
-    state: present
+    line: 'After=containerd.service'
   notify: restart kubelet
+  tags: test
 
 - name: Configure kubelet to use containerd
   lineinfile:
     path: /etc/systemd/system/kubelet.service
-    regexp: 'Requires=.*'
-    line: 'Requires=containerd.service \'
-    state: present
+    regexp: 'Requires=.*$'
+    line: 'Requires=containerd.service'
+    backrefs: yes
   notify: restart kubelet
+  tags: test
 
 - name: Configure kubelet to use containerd
   lineinfile:
     path: /etc/systemd/system/kubelet.service
     regexp: '--container-runtime-endpoint=.*'
-    line: '--container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \'
-    state: present
+    line: '  --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \'
   notify: restart kubelet
+  tags: test
