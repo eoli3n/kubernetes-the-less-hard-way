@@ -32,7 +32,7 @@ Configure vars in ``ansible/group_vars/all.yml``.
 
 ## Network and DNS
 
-All hosts needs an private IP on the same subnet.
+All hosts needs a private IP on the same subnet.
 Create DNS or ``hosts`` file entries for each VM.
 
 ## Firewall
