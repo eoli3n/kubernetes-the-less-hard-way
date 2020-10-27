@@ -94,6 +94,8 @@ Test health with
 ```
 ansible-playbook tests.yml -v -t healthz
 ```
+Returns
+```
 HTTP/1.1 200 OK
 Server: nginx/1.18.0 (Ubuntu)
 Date: Fri, 16 Oct 2020 16:57:04 GMT
