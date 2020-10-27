@@ -4,9 +4,12 @@ TODO
 - network:
   - kube-router instead of manual routes
   - flannel
+  - calica
 - runtimes : https://kubernetes.io/docs/setup/production-environment/container-runtimes/#container-runtimes
   - docker
+  - low-level: kata
 - helm
+- testing cluster : https://github.com/vmware-tanzu/sonobuoy
 - install addons : https://kubernetes.io/docs/concepts/overview/components/
   - autoscaler : https://github.com/kubernetes/autoscaler
   - ingress managers
