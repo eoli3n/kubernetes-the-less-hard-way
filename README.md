@@ -89,7 +89,7 @@ scheduler            Healthy   ok
 etcd-1               Healthy   {"health":"true"}   
 etcd-0               Healthy   {"health":"true"}   
 etcd-2               Healthy   {"health":"true"}   
-
+```
 Test health with
 ```
 ansible-playbook tests.yml -v -t healthz
