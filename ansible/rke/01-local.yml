@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Generate and autorize SSH key without passphrase
+      shell: |
+        rm id_rsa_rke*
+        ssh-keygen -b 2048 -t rsa -f id_rsa_rke -q -N ""
+        {% for node in (groups['controllers'] + groups['workers']) %}
+        ssh-copy-id -i id_rsa_rke.pub root@{{ hostvars[node].ansible_default_ipv4.address }}
+        {% endfor %}
+
+    - name: Download rke
+      get_url:
+        url: https://github.com/rancher/rke/releases/download/v1.2.1/rke_linux-amd64
+        dest: "{{ playbook_dir }}/rke"
+        mode: 0755
+
+    - name: Template minimal cluster.yml
+      template:
+        src: cluster.yml.j2
+        dest: cluster.yml

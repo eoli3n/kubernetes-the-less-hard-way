@@ -16,6 +16,11 @@ TODO
     - traefik
     - ingress-nginx : https://github.com/kubernetes/ingress-nginx
     - envoy : https://www.envoyproxy.io/
+- fluentd : https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd
+- argo ci : https://github.com/argoproj/argo
+- grafana / prometheus : https://github.com/prometheus-operator/kube-prometheus
+  - https://sysdig.com/blog/kubernetes-monitoring-prometheus
+  - https://phoenixnap.com/kb/prometheus-kubernetes-monitoring
 
 FIX
 - edit crio socket
@@ -31,5 +36,7 @@ ISSUES
 - long time after deleting a pod
 
 NEXT
+- https://github.com/rancher/k3s
+- https://rancher.com/docs/rke/latest/en/os/
 - https://kubernetes.io/fr/docs/setup/production-environment/tools/kubeadm/high-availability/
 - https://github.com/kubernetes-sigs/kubespray/blob/master/docs/setting-up-your-first-cluster.md
