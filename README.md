@@ -57,6 +57,6 @@ ansible all -m ping
 Read [hard-way](ansible/hard-way).
 
 ##### Rancher Kubernetes Engine
-Read [hard-way](ansible/rke).
+Read [rke](ansible/rke).
 
 
