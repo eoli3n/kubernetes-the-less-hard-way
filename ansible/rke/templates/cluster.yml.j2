@@ -5,12 +5,11 @@ nodes:
     role:
       - controlplane
       - etcd
-    ssh_key_path: {{ playbook_dir }}/id_rsa_rke
 {% endfor %}
 {% for node in groups['workers'] %}
   - address: {{ hostvars[node].ansible_default_ipv4.address }}
     user: root
     role:
       - worker
-    ssh_key_path: {{ playbook_dir }}/id_rsa_rke
 {% endfor %}
+ssh_agent_auth: true
