@@ -1,5 +1,6 @@
 Prepare environment with
 ```
+ansible-galaxy install geerlingguy.docker -p roles
 ansible-playbook 00-configure.yml
 ```
 
