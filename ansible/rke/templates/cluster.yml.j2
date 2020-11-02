@@ -1,14 +1,14 @@
 nodes:
 {% for node in groups['controllers'] %}
   - address: {{ hostvars[node].ansible_default_ipv4.address }}
-    user: root
+    user: rancher
     role:
       - controlplane
       - etcd
 {% endfor %}
 {% for node in groups['workers'] %}
   - address: {{ hostvars[node].ansible_default_ipv4.address }}
-    user: root
+    user: rancher
     role:
       - worker
 {% endfor %}

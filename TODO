@@ -36,6 +36,7 @@ ISSUES
 - long time after deleting a pod
 
 NEXT
+- learn use of toolset in arch-config
 - https://github.com/rancher/k3s
 - https://rancher.com/docs/rke/latest/en/os/
 - https://kubernetes.io/fr/docs/setup/production-environment/tools/kubeadm/high-availability/

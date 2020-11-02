@@ -1,0 +1,20 @@
+#cloud-config
+hostname: {{ inventory_hostname }}
+
+ssh_authorized_keys:
+  - {{ ssh_pub_key }}
+
+rancher:
+  network:
+    interfaces:
+      eth0:
+        address: {{ ansible_default_ipv4.address }}/24
+        gateway: {{ ansible_default_ipv4.gateway }}
+        dhcp: false
+    dns:
+      nameservers:
+        - {{ ns1 }}
+        - {{ ns2 }}
+      search:
+        - {{ domain }}
+  console: ubuntu
