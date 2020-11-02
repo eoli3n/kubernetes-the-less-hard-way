@@ -33,6 +33,7 @@ Then
 ```
 ansible-playbook 00-configure.yml -k
 # enter rancher password
+# it will fail with unreachable status du to reboot, that's normal
 ```
 
 **RKE** : Generate RKE config based on ansible hosts file
