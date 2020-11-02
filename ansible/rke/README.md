@@ -40,3 +40,8 @@ ansible-playbook 00-configure.yml -k
 ```
 ansible-playbook 01-local.yml
 ```
+Then run rke manually with
+```
+cd cluster
+./rke up
+```

@@ -1,0 +1,10 @@
+- hosts: workers:controllers
+  remote_user: rancher
+
+  tasks:
+    - name: template cloud-config.yml
+      template:
+        src: cloud-config.yml.j2
+        dest: /var/lib/rancher/conf/cloud-config.d/user_config.yml
+      become: yes
+      become_user: root
