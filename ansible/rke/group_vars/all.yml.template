@@ -2,6 +2,7 @@
 ssh_pub_key: "{{lookup('file', '~/.ssh/id_rsa.pub')}}"
 
 # Configure here
+cluster_name: "RKE"
 domain: "domain.fr"
 ns1: "1.1.1.1"
 ns2: "9.9.9.9"

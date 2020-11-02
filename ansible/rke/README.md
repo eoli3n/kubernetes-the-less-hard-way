@@ -45,3 +45,7 @@ Then run rke manually with
 cd cluster
 ./rke up
 ```
+Test with
+```
+kubectl --kubeconfig ./kube_config_cluster.yml get nodes
+```
