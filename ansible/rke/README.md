@@ -54,6 +54,7 @@ kubectl get nodes
 ```
 
 **Rancher** : Install Rancher with Helm
+
 Install helm package manager on your host and add rancher repository
 ```
 helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
