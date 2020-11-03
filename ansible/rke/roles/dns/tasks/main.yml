@@ -1,8 +1,0 @@
----
-- name: Configure systemd-resolved with domains
-  lineinfile:
-    path: /etc/systemd/resolved.conf
-    regexp: '^#Domains='
-    line: 'Domains={{ domain }}'
-  notify: restart systemd-resolved
-  tags: dns

@@ -47,5 +47,22 @@ cd cluster
 ```
 Test with
 ```
-kubectl --kubeconfig ./kube_config_cluster.yml get nodes
+# Install kubeconfig
+cp kube_config_cluster.yml ~/.kube/config
+chmod 600 ~/.kube/config
+kubectl get nodes
+```
+
+**Rancher** : Install Rancher with Helm
+Install helm package manager on your host and add rancher repository
+```
+helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
+# Create a namespace
+kubectl create namespace cattle-system
+```
+[Install cert-manager](https://rancher.com/docs/rancher/v2.x/en/installation/install-rancher-on-k8s/#5-install-cert-manager), then
+```
+helm install rancher rancher-latest/rancher \
+  --namespace cattle-system \
+  --set hostname=rancher.my.org
 ```
