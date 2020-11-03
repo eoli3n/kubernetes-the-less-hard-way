@@ -36,7 +36,10 @@ ansible-playbook 00-configure.yml -k
 # it will fail with unreachable status du to reboot, that's normal
 ```
 
-**RKE** : Generate RKE config based on ansible hosts file
+#RKE
+Setup Kubernetes cluster with RKE.
+
+Generate RKE config based on ansible hosts file.
 ```
 ansible-playbook 01-local.yml
 ```
@@ -53,8 +56,7 @@ chmod 600 ~/.kube/config
 kubectl get nodes
 ```
 
-**Rancher** : Install Rancher with Helm
-
+#Rancher
 Install helm package manager on your host and add rancher repository
 ```
 helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
