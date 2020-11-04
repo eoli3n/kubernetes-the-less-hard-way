@@ -74,3 +74,6 @@ helm install rancher rancher-latest/rancher \
   --namespace cattle-system \
   --set hostname=rancher.my.org
 ```
+
+Create ``hosts`` file entry or DNS to match rancher ``hostname``.  
+Then access to [https://rancher.my.org](https://rancher.my.org)
