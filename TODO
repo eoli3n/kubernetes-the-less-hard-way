@@ -4,23 +4,14 @@ TODO
 - network:
   - kube-router instead of manual routes
   - flannel
-  - calica
 - runtimes : https://kubernetes.io/docs/setup/production-environment/container-runtimes/#container-runtimes
-  - docker
   - low-level: kata
-- helm
-- testing cluster : https://github.com/vmware-tanzu/sonobuoy
 - install addons : https://kubernetes.io/docs/concepts/overview/components/
   - autoscaler : https://github.com/kubernetes/autoscaler
   - ingress managers
     - traefik
     - ingress-nginx : https://github.com/kubernetes/ingress-nginx
     - envoy : https://www.envoyproxy.io/
-- fluentd : https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd
-- argo ci : https://github.com/argoproj/argo
-- grafana / prometheus : https://github.com/prometheus-operator/kube-prometheus
-  - https://sysdig.com/blog/kubernetes-monitoring-prometheus
-  - https://phoenixnap.com/kb/prometheus-kubernetes-monitoring
 
 FIX
 - edit crio socket
@@ -34,12 +25,3 @@ ISSUES
   - E1025 18:11:15.522577 3195026 proxy_server.go:144] Error while proxying request: context canceled
 - metrics : not working
 - long time after deleting a pod
-
-NEXT
-- learn use of toolset in arch-config
-- https://github.com/rancher/k3s
-- https://rancher.com/docs/rke/latest/en/os/
-- https://kubernetes.io/fr/docs/setup/production-environment/tools/kubeadm/high-availability/
-- https://github.com/kubernetes-sigs/kubespray/blob/master/docs/setting-up-your-first-cluster.md
-- infrastructure as code : https://learn.hashicorp.com/terraform
-- packer, terraform : https://github.com/gruntwork-io/terratest/
