@@ -11,7 +11,7 @@ RancherOS is the OS which will run Kubernetes Cluster.
 
 On each worker|controller nodes
 - Boot RancherOS iso
-- Configure network
+- Configure network  
 To configure static ip
 ```
 sudo ros config set rancher.network.interfaces.eth0.address X.X.X.X/24
