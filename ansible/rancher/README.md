@@ -19,7 +19,7 @@ sudo ros config set rancher.network.interfaces.eth0.gateway X.X.X.Y
 sudo ros config set rancher.network.interfaces.eth0.dhcp false
 sudo system-docker restart network
 ```
-**Ansible**
+**Ansible**  
 To be able to run ansible on nodes, it needs python.
 
 - Change to ubuntu console with
