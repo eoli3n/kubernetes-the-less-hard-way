@@ -42,3 +42,4 @@ NEXT
 - https://kubernetes.io/fr/docs/setup/production-environment/tools/kubeadm/high-availability/
 - https://github.com/kubernetes-sigs/kubespray/blob/master/docs/setting-up-your-first-cluster.md
 - infrastructure as code : https://learn.hashicorp.com/terraform
+- packer, terraform : https://github.com/gruntwork-io/terratest/
