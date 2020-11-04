@@ -7,15 +7,15 @@ Kind of between [Kubernetes The Hard Way](https://github.com/kelseyhightower/kub
 
 ## VMs provisionning
 
-| Hostname        | OS for Hard Way     | OS for RKE |
-|-----------------|---------------------|------------|
-| k8s-controller1 | Ubuntu Server 20.04 | RancherOS  |
-| k8s-controller2 | Ubuntu Server 20.04 | RancherOS  |
-| k8s-controller3 | Ubuntu Server 20.04 | RancherOS  |
-| k8s-worker1     | Ubuntu Server 20.04 | RancherOS  |
-| k8s-worker2     | Ubuntu Server 20.04 | RancherOS  |
-| k8s-worker3     | Ubuntu Server 20.04 | RancherOS  |
-| k8s-haproxy     | Debian 10           | Debian 10  |
+| Hostname        | OS for Hard Way     | OS for Rancher |
+|-----------------|---------------------|----------------|
+| k8s-controller1 | Ubuntu Server 20.04 | RancherOS      |
+| k8s-controller2 | Ubuntu Server 20.04 | RancherOS      |
+| k8s-controller3 | Ubuntu Server 20.04 | RancherOS      |
+| k8s-worker1     | Ubuntu Server 20.04 | RancherOS      |
+| k8s-worker2     | Ubuntu Server 20.04 | RancherOS      |
+| k8s-worker3     | Ubuntu Server 20.04 | RancherOS      |
+| k8s-haproxy     | Debian 10           | Debian 10      |
 
 ## Configuration
 
@@ -55,5 +55,5 @@ ansible all -m ping
 ##### Hard way
 Read [hard-way](ansible/hard-way).
 
-##### Rancher Kubernetes Engine
-Read [rke](ansible/rke).
+##### Rancher way
+Read [rancher](ansible/rancher).

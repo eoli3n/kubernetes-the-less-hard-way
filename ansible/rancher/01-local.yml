@@ -4,18 +4,18 @@
 
   tasks:
 
-    - name: Create cluster directory
+    - name: Create rke directory
       file:
-        path: cluster
+        path: rke
         state: directory
 
     - name: Download rke
       get_url:
         url: https://github.com/rancher/rke/releases/download/v1.2.1/rke_linux-amd64
-        dest: "{{ playbook_dir }}/cluster/rke"
+        dest: "{{ playbook_dir }}/rke/rke"
         mode: 0755
 
     - name: Template minimal cluster.yml
       template:
         src: cluster.yml.j2
-        dest: cluster/cluster.yml
+        dest: rke/cluster.yml
