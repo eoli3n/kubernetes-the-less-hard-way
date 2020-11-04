@@ -7,8 +7,7 @@ cp group_vars/all.yml.template group_vars/all.yml
 ```
 
 # RancherOS
-RancherOS is the OS which will run Kubernetes Cluster.
-
+RancherOS is the OS which will run Kubernetes Cluster.  
 On each worker|controller nodes
 - Boot RancherOS iso
 - Configure network  
@@ -41,8 +40,7 @@ ansible-playbook 00-configure.yml -k
 ```
 
 # RKE
-RKE automates the setup process of Kubernetes cluster.
-
+RKE automates the setup process of Kubernetes cluster.  
 Generate RKE config based on ansible hosts file.
 ```
 ansible-playbook 01-local.yml
@@ -61,7 +59,7 @@ kubectl get nodes
 ```
 
 # Rancher
-Rancher is the tool to manage Kubernetes Clusters on a WebUI.
+Rancher is the tool to manage Kubernetes Clusters on a WebUI.  
 Helm is the Kubernetes package manager.
 
 Install helm package manager on your host and add rancher repository
