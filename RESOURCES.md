@@ -26,7 +26,7 @@ https://github.com/gruntwork-io/terratest/
 ### Tools
 Cluster testing solution: https://github.com/vmware-tanzu/sonobuoy  
 CI/CD: https://github.com/argoproj/argo  
-Grafana Prometheus : https://github.com/prometheus-operator/kube-prometheus  
-- https://sysdig.com/blog/kubernetes-monitoring-prometheus  
-- https://phoenixnap.com/kb/prometheus-kubernetes-monitoring  
-Fluentd : https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd  
+Grafana Prometheus : https://github.com/prometheus-operator/kube-prometheus 
+- https://sysdig.com/blog/kubernetes-monitoring-prometheus
+- https://phoenixnap.com/kb/prometheus-kubernetes-monitoring
+Fluentd : https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd
