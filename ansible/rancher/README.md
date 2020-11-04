@@ -46,7 +46,7 @@ ansible-playbook 01-local.yml
 ```
 Then run rke manually with
 ```
-cd cluster
+cd rke
 ./rke up
 ```
 Test with
