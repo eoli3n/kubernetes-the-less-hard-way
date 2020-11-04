@@ -19,6 +19,7 @@ sudo ros config set rancher.network.interfaces.eth0.gateway X.X.X.Y
 sudo ros config set rancher.network.interfaces.eth0.dhcp false
 sudo system-docker restart network
 ```
+Ansible needs python  
 - Change to ubuntu console with
 ```
 sudo ros console switch ubuntu -f
