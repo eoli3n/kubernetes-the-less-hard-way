@@ -1,3 +1,6 @@
+### Learn Kubernetes
+https://logz.io/blog/resources-learn-kubernetes/
+
 ### Local Kubernetes cluster
 https://minikube.sigs.k8s.io/docs/  
 https://github.com/kubernetes-sigs/kind  
