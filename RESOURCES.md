@@ -28,6 +28,7 @@ https://github.com/gruntwork-io/terratest/
 
 ### Tools
 Cluster testing solution: https://github.com/vmware-tanzu/sonobuoy  
+Security weaknesses hunter: https://github.com/aquasecurity/kube-hunter
 CI/CD: https://github.com/argoproj/argo  
 Fluentd : https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd  
 Grafana Prometheus : https://github.com/prometheus-operator/kube-prometheus 
