@@ -1,4 +1,8 @@
 TODO
+
+- replace haproxy by nginx for HA : https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-udp-load-balancer/
+- https://www.cyberciti.biz/faq/handling-nginx-failover-with-keepalived/
+
 - kube-proxy : test mode ipvs
 - upgrade to kubernetes 19.1
 - network:

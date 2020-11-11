@@ -1,0 +1,13 @@
+---
+- hosts: kubernetes
+  tasks:
+    - name: Gather network facts
+      setup:
+        gather_subset:
+          - network
+
+- hosts: loadbalancers
+  vars:
+    keepalived_password: {{ lookup('password', '/tmp/passwordfile chars=ascii_letters') }}
+  roles:
+    - role: loadbalancer

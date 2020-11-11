@@ -1,0 +1,13 @@
+stream {
+    upstream kube-apiserver {
+        least_conn;
+    {% for node in groups['controllers'] %}
+        server {{ hostvars[node]['ansible_facts']['default_ipv4']['address'] }}:6443;
+    {% endfor %}
+    }
+    
+    server {
+        listen        6443;
+        proxy_pass    kube-apiserver;
+    }
+}

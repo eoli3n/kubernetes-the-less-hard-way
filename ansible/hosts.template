@@ -3,9 +3,9 @@ all:
     ansible_fqdn: "{{inventory_hostname}}.{{domain}}"
   hosts:
   children:
-    haproxy:
+    loadbalancers:
       hosts:
-        k8s-haproxy:
+        k8s-loadbalancer[1:2]:
     kubernetes:
       children:
         controllers:

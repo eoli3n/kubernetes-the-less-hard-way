@@ -1,0 +1,21 @@
+vrrp_script chk_http_port {
+        script "/usr/bin/killall -0 nginx"
+        interval 2
+        weight 2
+}
+vrrp_instance VI_1 {
+        interface eth0
+        state {{ "MASTER" if groups.loadbalancers.index(inventory_hostname) == 0 else "SLAVE" }} 
+        virtual_router_id 51
+        priority 101
+        authentication {
+            auth_type PASS
+            auth_pass {{ keepalived_password }}
+        }
+        track_script {
+            chk_http_port
+        }
+        virtual_ipaddress {
+            {{ loadbalancers_vip }} dev eth1
+        }
+}

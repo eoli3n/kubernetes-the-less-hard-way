@@ -1,0 +1,28 @@
+---
+- name: install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: configure nginx
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+  notify: restart nginx
+
+- name: enable default configuration
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+  notify: restart nginx
+
+- name: install keepalived
+  apt:
+    name: keepalived
+    state: present
+
+- name: configure keepalived
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  notify: restart keepalived
