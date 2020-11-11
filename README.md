@@ -4,7 +4,7 @@ IN PROGRESS
 
 Ansible playbooks to learn how to host highly available Kubernetes cluster on premise.  
 - [Hard Way](ansible/hard-way) is kind of between [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) and [KubeSpray](https://github.com/kubernetes-sigs/kubespray), it automates cluster install from scratch: it is a sandbox to learn how each components works.  
-- [Rancher Kubernetes Engine](ansible/rke) automates test cluster install with [RKE](https://rancher.com/docs/rke/latest/en/) on top of RancherOS hosts. It supports persistent storage, container registry, ...  
+- [Rancher Kubernetes Engine](ansible/rke) automates test cluster install with [RKE](https://rancher.com/docs/rke/latest/en/) on top of [RancherOS hosts](https://rancher.com/docs/os/v1.x/en/). It supports persistent storage, container registry, ...  
 
 ## VMs provisionning
 
@@ -23,9 +23,9 @@ Ansible playbooks to learn how to host highly available Kubernetes cluster on pr
 
 ## Network and DNS
 
-All hosts needs a private IP on the same subnet.
-Create DNS or ``hosts`` file entries for each VM.
-Each VMs and your client should be able to resolve all hostnames.
+All hosts needs a private IP on the same subnet.  
+Create DNS or ``hosts`` file entries for each VM.  
+Each VMs and your client should be able to resolve all hostnames.  
 
 ## Inventory
 
@@ -36,8 +36,8 @@ Add all hostnames in ``ansible/hosts``.
 
 ## Firewall
 
-All trafic between VMs should not be filtered.
-To access services from outside, you should open in your firewall:
+All trafic between VMs should not be filtered.  
+To access services from outside, you should open in your firewall:  
 
 | Service        | Port           | Destination |
 |----------------|----------------|-------------|
@@ -46,9 +46,10 @@ To access services from outside, you should open in your firewall:
 | ingress        | 80/tcp 443/tcp | k8s-haproxy |
 
 ## Run Ansible playbooks
-Please read playbooks before running.
 
-Install SSH, authorize your SSH public key, then test if VMs are reachable.
+Please read playbooks before running.  
+
+Install SSH, authorize your SSH public key, then test if VMs are reachable.  
 ```
 ansible all -m ping
 ```
