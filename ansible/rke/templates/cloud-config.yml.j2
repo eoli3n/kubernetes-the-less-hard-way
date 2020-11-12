@@ -21,4 +21,5 @@ rancher:
 
 runcmd:
   - apt update
-  - apt install python -y
+  - apt install python lvm2 -y
+  - vgchange -ay

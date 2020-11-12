@@ -1,4 +1,12 @@
 ---
+- hosts: kubernetes
+  remote_user: rancher
+  tasks:
+    - name: Gather network facts
+      setup:
+        gather_subset:
+          - network
+
 - hosts: localhost
   connection: local
 

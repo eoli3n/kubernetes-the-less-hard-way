@@ -1,5 +1,6 @@
 ---
 - hosts: kubernetes
+  remote_user: rancher
   tasks:
     - name: Gather network facts
       setup:

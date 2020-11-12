@@ -31,13 +31,18 @@ sudo apt install python -y
 ```
 sudo passwd rancher
 ```
-Then
+Then on your host
 
 ```
+# Test ansible connectivity
+ansible workers:controllers -m ping -u rancher -k
 ansible-playbook 00-configure.yml -k
 # enter rancher password
 # it will fail with unreachable status du to reboot, that's normal
 ```
+
+# Load balancer
+TODO
 
 # RKE
 RKE automates the setup process of Kubernetes cluster.  
@@ -53,9 +58,21 @@ cd rke
 Test with
 ```
 # Install kubeconfig
-cp kube_config_cluster.yml ~/.kube/config
-chmod 600 ~/.kube/config
+mkdir -p ~/.kube
+# edit kube_config_cluster.yml to set load-balancer hostname, then merge kubeconfig
+KUBECONFIG=~/.kube/config:./kube_config_cluster.yml kubectl config view 
+KUBECONFIG=~/.kube/config:./kube_config_cluster.yml kubectl config view --raw > ~/.kube/config
 kubectl get nodes
+```
+
+# Persistent Volumes
+Workers nodes needs an extra unformated disk to configure CephFS.
+```
+kubectl create -f files/rook/common.yaml
+kubectl create -f files/rook/operator.yaml
+# verify the rook-ceph-operator is in the `Running` state before proceeding
+watch kubectl -n rook-ceph get pod
+kubectl create -f files/rook/cluster.yaml
 ```
 
 # Rancher
