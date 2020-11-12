@@ -4,7 +4,7 @@ IN PROGRESS
 
 Ansible playbooks to learn how to host highly available Kubernetes cluster on premise with no SPOF.  
 - [Hard Way](ansible/hard-way) is kind of between [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) and [KubeSpray](https://github.com/kubernetes-sigs/kubespray), it automates cluster install from scratch: it is a sandbox to learn how each components works.  
-- [RKE](ansible/rke) automates test cluster install with [Rancher Kubernetes Engine](https://rancher.com/docs/rke/latest/en/) on top of [RancherOS hosts](https://rancher.com/docs/os/v1.x/en/). It has persistent storage, container registry, ...  
+- [RKE](ansible/rke) automates production ready cluster install with [Rancher Kubernetes Engine](https://rancher.com/docs/rke/latest/en/) on top of [RancherOS hosts](https://rancher.com/docs/os/v1.x/en/). It has distributed persistent storage, container registry, true high availability with no Single Point Of Failure, ...  
 
 ## VMs provisionning
 
