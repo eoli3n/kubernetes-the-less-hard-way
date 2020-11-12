@@ -21,8 +21,12 @@ services:
     creation: 6h
     retention: 24h
   kubelet:
-    image: ""
+  # https://github.com/rook/rook/issues/3923#issuecomment-584852935
     extra_args:
+      root-dir: /opt/rke/var/lib/kubelet
       volume-plugin-dir: /usr/libexec/kubernetes/kubelet-plugins/volume/exec
     extra_binds:
-      - /usr/libexec/kubernetes/kubelet-plugins/volume/exec:/usr/libexec/kubernetes/kubelet-plugins/volume/exec
+      - '/usr/libexec/kubernetes/kubelet-plugins/volume/exec:/usr/libexec/kubernetes/kubelet-plugins/volume/exec'
+      - '/var/lib/kubelet/plugins_registry:/var/lib/kubelet/plugins_registry'
+      - '/var/lib/kubelet/pods:/var/lib/kubelet/pods:shared,z'
+      - '/opt/rke/var/lib/kubelet:/opt/rke/var/lib/kubelet:shared,z'

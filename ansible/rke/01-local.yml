@@ -17,6 +17,14 @@
         path: rke
         state: directory
 
+    - name: Remove rkestate
+      file:
+        path: '{{ item }}'
+        state: absent
+      loop:
+        - rke/cluster.rkestate
+        - rke/kube_config_cluster.yml
+
     - name: Download rke
       get_url:
         url: https://github.com/rancher/rke/releases/download/v1.2.1/rke_linux-amd64

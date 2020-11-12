@@ -66,6 +66,7 @@ kubectl get nodes
 ```
 
 # Persistent Volumes
+See https://github.com/rook/rook/issues/3923#issuecomment-534037026  
 Workers nodes needs an extra unformated disk to configure CephFS.
 ```
 kubectl create -f files/rook/common.yaml

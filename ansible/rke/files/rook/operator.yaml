@@ -66,7 +66,7 @@ data:
   # CSI_RBD_PLUGIN_UPDATE_STRATEGY: "OnDelete"
 
   # kubelet directory path, if kubelet configured to use other than /var/lib/kubelet path.
-  # ROOK_CSI_KUBELET_DIR_PATH: "/var/lib/kubelet"
+  #ROOK_CSI_KUBELET_DIR_PATH: "/opt/rke/var/lib/kubelet"
 
   # (Optional) Ceph Provisioner NodeAffinity.
   # CSI_PROVISIONER_NODE_AFFINITY: "role=storage-node; storage=rook, ceph"
@@ -317,8 +317,8 @@ spec:
         # - name: AGENT_MOUNT_SECURITY_MODE
         #   value: "Any"
         # Set the path where the Rook agent can find the flex volumes
-        # - name: FLEXVOLUME_DIR_PATH
-        #   value: "<PathToFlexVolumes>"
+        #- name: FLEXVOLUME_DIR_PATH
+        #  value: "/var/lib/kubelet/volumeplugins"
         # Set the path where kernel modules can be found
         # - name: LIB_MODULES_DIR_PATH
         #   value: "<PathToLibModules>"

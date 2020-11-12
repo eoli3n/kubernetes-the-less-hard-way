@@ -20,6 +20,14 @@ rancher:
   console: ubuntu
 
 runcmd:
+# https://github.com/rancher/os/issues/2146#issuecomment-353514257
   - apt update
-  - apt install python lvm2 -y
+  - apt install python -y
+{% if inventory_hostname in groups['workers'] %} 
+  - modprobe rbd
+  - apt install lvm2 -y
+  - sed -i 's/\(use_lvmetad =\) 1/\1 0/' /etc/lvm/lvm.conf
+  - pvcreate /dev/sdb
   - vgchange -ay
+{% endif %}
+
