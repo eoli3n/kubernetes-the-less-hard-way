@@ -35,3 +35,4 @@
       template:
         src: cluster.yml.j2
         dest: rke/cluster.yml
+

@@ -51,6 +51,8 @@ https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd
 ### Storage
 https://kubernetes.io/fr/docs/concepts/storage/persistent-volumes/
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+https://github.com/longhorn/longhorn
+https://rook.io/docs/rook/v1.4/ceph-storage.html
 
 ### Images Registry
 https://goharbor.io/

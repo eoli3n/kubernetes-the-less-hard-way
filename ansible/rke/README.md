@@ -66,14 +66,28 @@ kubectl get nodes
 ```
 
 # Persistent Volumes
-See https://github.com/rook/rook/issues/3923#issuecomment-534037026  
+ee https://github.com/rook/rook/issues/3923#issuecomment-584852935  
 Workers nodes needs an extra unformated disk to configure CephFS.
 ```
+# deploy rook
 kubectl create -f files/rook/common.yaml
 kubectl create -f files/rook/operator.yaml
-# verify the rook-ceph-operator is in the `Running` state before proceeding
+# verify that rook-ceph-operator is running
 watch kubectl -n rook-ceph get pod
+# then
 kubectl create -f files/rook/cluster.yaml
+
+# deploy toolbox
+kubectl create -f files/rook/toolbox.yml
+# verify that toolbox is running
+kubectl -n rook-ceph get pod -l "app=rook-ceph-tools"
+# run the toolbox
+kubectl -n rook-ceph exec -it (kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- bash
+# check ceph
+ceph status # health should be "ok"
+ceph osd status
+ceph df
+rados df
 ```
 
 # Rancher
