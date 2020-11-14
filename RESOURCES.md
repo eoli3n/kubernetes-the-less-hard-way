@@ -11,6 +11,7 @@ https://aws.amazon.com/fr/free/
 https://learn.hashicorp.com/packer  
 https://learn.hashicorp.com/terraform  
 https://github.com/gruntwork-io/terratest/  
+https://learn.hashicorp.com/tutorials/terraform/kubernetes-provider
 
 # Installers
 
@@ -42,6 +43,7 @@ https://github.com/argoproj/argo
 
 ### Monitoring
 Grafana Prometheus : https://github.com/prometheus-operator/kube-prometheus 
+
 - https://sysdig.com/blog/kubernetes-monitoring-prometheus
 - https://phoenixnap.com/kb/prometheus-kubernetes-monitoring
 
