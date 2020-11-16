@@ -29,6 +29,7 @@ https://rancher.com/docs/rke/latest/en/os/
 
 ### Host OS
 https://rancher.com/docs/os/v1.x/en/  
+https://www.flatcar-linux.org/
 
 ### Dashboards
 https://github.com/kubernetes/dashboard  
