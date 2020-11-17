@@ -11,7 +11,7 @@ https://aws.amazon.com/fr/free/
 https://learn.hashicorp.com/packer  
 https://learn.hashicorp.com/terraform  
 https://github.com/gruntwork-io/terratest/  
-https://learn.hashicorp.com/tutorials/terraform/kubernetes-provider
+https://learn.hashicorp.com/tutorials/terraform/kubernetes-provider  
 
 # Installers
 
@@ -29,7 +29,7 @@ https://rancher.com/docs/rke/latest/en/os/
 
 ### Host OS
 https://rancher.com/docs/os/v1.x/en/  
-https://www.flatcar-linux.org/
+https://www.flatcar-linux.org/  
 
 ### Dashboards
 https://github.com/kubernetes/dashboard  
@@ -37,7 +37,7 @@ https://rancher.com/docs/rancher/v2.x/en/installation/
 
 ### Security
 Cluster testing solution: https://github.com/vmware-tanzu/sonobuoy  
-Security weaknesses hunter: https://github.com/aquasecurity/kube-hunter
+Security weaknesses hunter: https://github.com/aquasecurity/kube-hunter  
 
 ### CI/CD
 https://github.com/argoproj/argo  
@@ -45,17 +45,17 @@ https://github.com/argoproj/argo
 ### Monitoring
 Grafana Prometheus : https://github.com/prometheus-operator/kube-prometheus 
 
-- https://sysdig.com/blog/kubernetes-monitoring-prometheus
-- https://phoenixnap.com/kb/prometheus-kubernetes-monitoring
+- https://sysdig.com/blog/kubernetes-monitoring-prometheus  
+- https://phoenixnap.com/kb/prometheus-kubernetes-monitoring  
 
 ### Logs
 https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd  
 
 ### Storage
-https://kubernetes.io/fr/docs/concepts/storage/persistent-volumes/
-https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
-https://github.com/longhorn/longhorn
-https://rook.io/docs/rook/v1.4/ceph-storage.html
+https://kubernetes.io/fr/docs/concepts/storage/persistent-volumes/  
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/  
+https://github.com/longhorn/longhorn  
+https://rook.io/docs/rook/v1.4/ceph-storage.html  
 
 ### Images Registry
-https://goharbor.io/
+https://goharbor.io/  
